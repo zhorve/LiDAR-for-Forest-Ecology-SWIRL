@@ -32,8 +32,7 @@ setwd(get_swirl_course_path(course_name))
 cat("Working directory set to:\n", getwd(), "\n")
 
 # The lesson requires the raster and lidR packages. This checks and installs
-# the packages in cass the learner does not have them. Note-- it does not 
-# load the packages. 
+# the packages in cass the learner does not have them. 
 
 pkgs <- c("raster", "lidR")
 
@@ -42,3 +41,10 @@ missing <- pkgs[!vapply(pkgs, requireNamespace, logical(1), quietly = TRUE)]
 if (length(missing) > 0) {
   install.packages(missing)
 }
+
+# Additionally, this lesson will have some plotting tasks. Here we will pre-load
+# the color palette to make things more simple. 
+
+library(lidR)
+
+col = height.colors(25)

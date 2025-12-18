@@ -107,4 +107,23 @@
   Hint: |
     Read the units carefully! We are looking for the density of POINTS / m^2
 
+- Class: text
+  Output: |
+   Now we have inspected the point cloud, let's start processing!
 
+- Class: text
+  Output: |
+   The first product we will create is a digital surface model or DEM. A digital
+   surface model represents the highest point elevation for each cell. If you image 
+   cloth descending from above onto the forest, the cloth would follow the contours
+   of the canopy where there are trees, but fall to the ground where there are 
+   canopy gaps. 
+   
+- Class: cmd_question
+  Output: |
+   Let's try making a DSM from our point cloud. Enter the following into your terminal:
+   dsm= rasterize_canopy(las, res= 1, algorithm = p2r())
+  CorrectAnswer: dsm= rasterize_canopy(las, res= 1, algorithm = p2r())
+  AnswerTests: omnitest(correctExpr='dsm= rasterize_canopy(las, res= 1, algorithm = p2r())')
+  Hint: |
+   Simply type dsm= rasterize_canopy(las, res= 1, algorithm = p2r()) into your terminal.
