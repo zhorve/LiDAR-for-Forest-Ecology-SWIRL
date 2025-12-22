@@ -106,6 +106,16 @@
   AnswerTests: omnitest(correctVal='13.47')
   Hint: |
     Read the units carefully! We are looking for the density of POINTS / m^2
+    
+- Class: mult_question
+  Output: |
+   Additionally, it is important to understand the units of measurement, particularly
+   in the vertical direction. Return to the las summary. What are the vertical units?
+  AnswerChoices: Meters;Feet;Yards
+  CorrectAnswer: Meters
+  AnswerTests: omnitest(correctVal='Meters')
+  Hint: |
+   Check the coord. ref. section of the summary. 
 
 - Class: text
   Output: |
@@ -113,7 +123,7 @@
 
 - Class: figure
   Output: |
-   The first product we will create is a digital surface model or DEM. A digital
+   The first product we will create is a digital surface model or DSM. A digital
    surface model represents the highest vertical point value for each raster cell.
    If you imagine a cloth descending from above onto the forest, the cloth would 
    follow the contours of the canopy where there are trees, but fall to the ground 
@@ -139,3 +149,204 @@
   Hint: |
    Simply type plot(dsm, col = col, main = "Digital Surface Model (1 m)") into your terminal.
 
+- Class: text
+  Output: |
+   While a DSM accurately represents the outer surface of the canopy, its elevations 
+   are expressed relative to a vertical datum rather than the ground surface. To 
+   measure vegetation height above ground, we must first model the ground surface 
+   and then subtract this ground model from the DSM.
+
+- Class: figure
+  Output: |
+   To represent the ground surface, we create a digital terrain model (DTM). 
+   The underlying concept is similar to that of a DSM, but inverted. Instead of 
+   a cloth descending from above, imagine a cloth rising from below the landscape, 
+   conforming to the terrain and producing a raster that follows the contours of 
+   the ground surface beneath the vegetation.
+  Figure: draw_dtm_fig.R
+  FigureType: new
+   
+- Class: cmd_question
+  Output: |
+   Let's make a DTM from our point cloud. Enter the following into your terminal:
+   dtm = rasterize_terrain(las, res= 1, algorithm = knnidw())
+  CorrectAnswer: dtm = rasterize_terrain(las, res= 1, algorithm = knnidw())
+  AnswerTests: omnitest(correctExpr='dtm = rasterize_terrain(las, res= 1, algorithm = knnidw())')
+  Hint: |
+   Simply type dtm = rasterize_terrain(las, res= 1, algorithm = knnidw()) into your terminal.
+
+- Class: cmd_question
+  Output: |
+   Great work! Now let's view it. Enter the following into your terminal: 
+   plot(dtm, col= col, main = "Digital Terrain Model (1 m)")
+  CorrectAnswer: plot(dtm, col= col, main = "Digital Terrain Model (1 m)")
+  AnswerTests: omnitest(correctExpr='plot(dtm, col= col, main = "Digital Terrain Model (1 m)")')
+  Hint: |
+   Simply type plot(dtm, col= col, main = "Digital Terrain Model (1 m)") into your terminal.
+
+- Class: text
+  Output: |
+   By creating a Digital Terrain Model (DTM), we obtain a representation of the ground
+   surface with elevation values referenced to a vertical datum. In this image, the two
+   stream channels and their associated floodplains are clearly visible. The diagonal
+   feature in the center of the image is a ditch that drains runoff from the
+   residential area in the upper-right portion of the scene.
+
+- Class: text
+  Output: |
+   DTMs are important for hydrology and geomorphology applications and
+   are widely used to delineate watersheds, model surface runoff, and identify stream
+   networks and flood-prone areas. DTMs are also commonly used in applications such
+   as landslide risk assessment, infrastructure planning, and terrain correction of
+   remote sensing data. In this lesson, however, we will use the DTM to calculate
+   vegetation height above ground.
+
+- Class: figure
+  Output: |
+   To create a raster of vegation heights above ground, we will simply subtract
+   the DTM from the DSM. The output raster is commonly called a canopy height model (CHM).
+  Figure: draw_chm_fig.R
+  FigureType: new
+  
+- Class: cmd_question
+  Output: |
+   In R, the process is easy. Enter the following into your terminal: chm = dsm - dtm
+  CorrectAnswer: chm = dsm - dtm
+  AnswerTests: omnitest(correctExpr='chm = dsm - dtm')
+  Hint: |
+   Simply type chm = dsm - dtm into your terminal.
+
+- Class: cmd_question
+  Output: |
+   Nice job! Now let's view it. Enter the following into your terminal: 
+   plot(chm, col= col, main= "Canopy Height Model (1 m)")
+  CorrectAnswer: plot(chm, col= col, main= "Canopy Height Model (1 m)")
+  AnswerTests: omnitest(correctExpr='plot(chm, col= col, main= "Canopy Height Model (1 m)")')
+  Hint: |
+   Simply type plot(chm, col= col, main= "Canopy Height Model (1 m)") into your terminal.
+
+- Class: text
+  Output: |
+   Canopy Height Models (CHMs) are a powerful resource for ecological and environmental 
+   applications, including forest inventory, habitat characterization, and the 
+   assessment of structural diversity in forested ecosystems. CHMs are also widely 
+   used to estimate aboveground biomass, map canopy gaps, and quantify post 
+   disturbance dynamics.
+   
+- Class: text
+  Output: |
+   In this case, however, the CHM does not represent vegetation height alone. Because 
+   this dataset covers an urban area, the upper portion of the CHM includes 
+   buildings as well as trees. If our goal is to characterize vegetation structure, 
+   these built features must be identified and removed to ensure they are not 
+   misinterpreted as vegetation. Luckily, we can use features of the point cloud
+   itself to classify buildings and remove them. 
+   
+- Class: cmd_question
+  Output: |
+   The lidR package enables us to separate planar surfaces, like roofs, from non-planar
+   surfaces, like vegetation, based on the arrangement of the points in the point
+   cloud. Let's try this out. Enter the following into your terminal:
+   las_seg = segment_shapes(las, shp_plane(k = 25), "planar")
+  CorrectAnswer: las_seg = segment_shapes(las, shp_plane(k = 25), "planar")
+  AnswerTests: omnitest(correctExpr='las_seg = segment_shapes(las, shp_plane(k = 25), "planar")')
+  Hint: |
+   Simply type las_seg = segment_shapes(las, shp_plane(k = 25), "planar") into your terminal.
+
+- Class: cmd_question
+  Output: |
+   Nice work! Now let's view the classified point cloud. Enter the following into your 
+   terminal (this will open a new window):
+   plot(las_seg, color = "planar")
+  CorrectAnswer: plot(las_seg, color = "planar")
+  AnswerTests: omnitest(correctExpr='plot(las_seg, color = "planar")')
+  Hint: |
+   Simply type plot(las_seg, color = "planar") into your terminal.
+   
+- Class: text
+  Output: |
+   In the plot, you can see that all points belonging to planar surfaces including 
+   building roofs and the ground are red, and vegetation points are blue. Now let's 
+   recreate our CHM without the buildings. 
+   
+- Class: cmd_question
+  Output: |
+   To start, let's recreate our digital surface model without building points. In 
+   addition to their three-dimensional coordinates (x, y, z), LiDAR points can 
+   store additional attributes, such as classification labels. In this dataset, 
+   we have classified each point as planar or non-planar. Because buildings are 
+   predominantly planar surfaces, we can use this classification to filter them out. 
+   To do this, type the following into your terminal: 
+   las_no_buildings = filter_poi(las_seg, Classification != planar)
+  CorrectAnswer: las_no_buildings = filter_poi(las_seg, Classification != planar)
+  AnswerTests: omnitest(correctExpr='las_no_buildings = filter_poi(las_seg, Classification != planar)')
+  Hint: |
+   Simply type las_no_buildings = filter_poi(las_seg, Classification != planar) into your terminal.
+   
+- Class: cmd_question
+  Output: |
+   Now, let's recreate the DSM with the filtered point cloud. Enter the following
+   into your terminal: 
+   dsm_no_buildings = rasterize_canopy(las_no_buildings, res= 1, algorithm = p2r())
+  CorrectAnswer: dsm_no_buildings = rasterize_canopy(las_no_buildings, res= 1, algorithm = p2r())
+  AnswerTests: omnitest(correctExpr='dsm_no_buildings = rasterize_canopy(las_no_buildings, res= 1, algorithm = p2r())')
+  Hint: |
+   Simply type dsm_no_buildings = rasterize_canopy(las_no_buildings, res= 1, algorithm = p2r()) into your terminal.
+
+- Class: cmd_question
+  Output: |
+   Now that we have our DSM without buldings, let's recreate the CHM using the same
+   method as before. Enter the following into your terminal: 
+   chm_no_buildings= dsm_no_buildings - dtm
+  CorrectAnswer: chm_no_buildings= dsm_no_buildings - dtm
+  AnswerTests: omnitest(correctExpr='chm_no_buildings= dsm_no_buildings - dtm')
+  Hint: |
+   Simply type chm_no_buildings= dsm_no_buildings - dtm into your terminal.
+
+- Class: cmd_question
+  Output: |
+   To view the CHM without buildings, enter the following into your terminal: 
+   plot(chm_no_buildings, col= col, main= "Canopy Height Model, No Buildings (1 m)")
+  CorrectAnswer: plot(chm_no_buildings, col= col, main= "Canopy Height Model, No Buildings (1 m)")
+  AnswerTests: omnitest(correctExpr='plot(chm_no_buildings, col= col, main= "Canopy Height Model, No Buildings (1 m)")')
+  Hint: |
+   Simply type plot(chm_no_buildings, col= col, main= "Canopy Height Model, No Buildings (1 m)") into your terminal.  
+   
+- Class: text
+  Output: |
+   Fantastic work! While not every application will require building removal, classifying 
+   points is a valuable tool for other important processing tasks such as individual 
+   tree detection and segmentation, leaf-wood separation, and downed woody debris 
+   mapping. In Lesson 2, we will apply an algorithm that will classify points to 
+   detect and segment trees in order to derive biometrics such as tree height. 
+
+- Class: text
+  Output: |
+   Quiz time! Let's review some of the key takeaways from this lesson.
+
+- Class: mult_question
+  Output: |
+   The ability to distinguish features in the point cloud is largely dependent on what?
+  AnswerChoices: Point density;Spectral signature;Coordinate system
+  CorrectAnswer: Point density
+  AnswerTests: omnitest(correctVal='Point density')
+  Hint: |
+   What did we check first when inspecting the point cloud summary?
+
+- Class: mult_question
+  Output: |
+   What does a digital surface model (DSM) represent?
+  AnswerChoices: Height of vegetation above ground;Height of surfaces above the datum;A classified point cloud
+  CorrectAnswer: Height of surfaces above the datum
+  AnswerTests: omnitest(correctVal='Height of surfaces above the datum')
+  Hint: |
+   Think about what surface the DSM follows and what reference level its elevations are measured from.
+
+- Class: mult_question
+  Output: |
+   How do you calculate the CHM?
+  AnswerChoices: DSM - DTM;DTM - DSM;DEM - DSM
+  CorrectAnswer: DSM - DTM
+  AnswerTests: omnitest(correctVal='DSM - DTM')
+  Hint: |
+   Remember that the CHM captures the heights of surfaces above the ground. 
