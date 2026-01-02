@@ -10,9 +10,8 @@
   Output: |
     Welcome to Lesson 2 of LiDAR for Forest Ecology! In this lesson, you
     will learn how identify and segment individual trees from an airborne LiDAR
-    point cloud to extract tree heights and landscape metrics. You will also 
-    have an opportunity to explore the process and challenges of validating
-    remote sensing datasets with field collected data. 
+    point cloud to extract tree heights and create maps of tree density across
+    a forested landscape. 
     
 - Class: figure
   Output: |
@@ -26,16 +25,17 @@
   
 - Class: cmd_question
   Output: |
-    Our area of interest will be the area surrounding one of the vegetation inventory
-    plots within the Abby Road NEON site. To start, let's load the point cloud. Please
-    type the following into your terminal: 
+    Our area of interest will cover areas with different land use histories. Part
+    of the area of interest was recently logged, while the other is old growth. 
+    Let's load the point cloud and visualize this. Please type the following into 
+    your terminal: 
     
-    las = readLAS("ABBY_013_pc_2021.las")
+    las = readLAS("ABBY_pc.laz")
     
-  CorrectAnswer: las = readLAS("ABBY_013_pc_2021.las")
-  AnswerTests: omnitest(correctExpr='las = readLAS("ABBY_013_pc_2021.las")')
+  CorrectAnswer: las = readLAS("ABBY_pc.laz")
+  AnswerTests: omnitest(correctExpr='las = readLAS("ABBY_pc.laz")')
   Hint: |
-   Simply type las = readLAS("ABBY_013_pc_2021.las") into your terminal.
+   Simply type las = readLAS("ABBY_pc.laz") into your terminal.
 
 - Class: cmd_question
   Output: |
@@ -43,11 +43,122 @@
     Let's take a look at it by typing the following into your terminal(this will
     open a new window): 
     
-    plot(las, color = "Classification")
+    plot(las)
     
+  CorrectAnswer: plot(las)
+  AnswerTests: omnitest(correctExpr='plot(las)')
+  Hint: |
+    Just copy and paste the following into the terminal: 
+    
+    plot(las)
+ 
+- Class: cmd_question
+  Output: |
+    Beyond the basic XYZ location of each LiDAR return, point clouds can store 
+    many additional attributes. This particular point cloud has standardized classification
+    codes for each point. These standardized classifications are defined by the 
+    American Society of Photogrammetry and Remote Sensing (ASPRS) and describe the 
+    type of surface from which each laser pulse reflected. Ground points are shown 
+    in blue, low vegetation in white, and high vegetation in green. Let's view 
+    these classifications in our point cloud. Enter the following into your terminal: 
+
+    plot(las, color = "Classification")
+
   CorrectAnswer: plot(las, color = "Classification")
   AnswerTests: omnitest(correctExpr='plot(las, color = "Classification")')
   Hint: |
     Just copy and paste the following into the terminal: 
     
     plot(las, color = "Classification")
+
+- Class: text
+  Output: |
+    In this exercise, we move beyond ASPRS classifications to identify and segment
+    individual trees from the point cloud. This is done by assigning a unique tree ID to all 
+    points belonging to the same  tree. By indentifying and separating out trees from the
+    point cloud, we can derive counts of trees in an area and biometrics such as heights, 
+    which can be valuable for forest inventories and monitoring environmental changes 
+    at broad spatial scales. 
+
+
+- Class: cmd_question
+  Output: |
+    Before we begin tree identification and segmentation, we must first normalize 
+    the point cloud. Normalization is the process of converting point heights from 
+    elevations above a vertical datum to heights above the ground surface by subtracting
+    a DTM from the point cloud heights. By normalizing the point cloud, we also 
+    remove the influence of topography, allowing tree heights and canopy structure 
+    to be compared consistently across the landscape. To normalize the point cloud, 
+    enter the following into your terminal: 
+    
+    las_norm = normalize_height(las, algorithm = knnidw())
+    
+  CorrectAnswer: las_norm = normalize_height(las, algorithm = knnidw())
+  AnswerTests: omnitest(correctExpr='las_norm = normalize_height(las, algorithm = knnidw())')
+  Hint: |
+    Simply copy and paste the following into the terminal: 
+    
+    las_norm = normalize_height(las, algorithm = knnidw())
+
+
+- Class: cmd_question
+  Output: |
+    Let's inspect the point cloud again. Pay close attention to the ground surface.
+    You should be able to see a flat ground surface with topography removed. 
+    
+    Enter the following into your terminal: 
+    
+    plot(las_norm)
+    
+  CorrectAnswer: plot(las_norm)
+  AnswerTests: omnitest(correctExpr='plot(las_norm)')
+  Hint: |
+    Simply copy and paste the following into the terminal: 
+    
+    plot(las_norm)
+
+- Class: cmd_question
+  Output: |
+    We can also use the ASPRS classifications to filter the points to those that
+    are high vegetation. This will ensure that only tree points will be used to 
+    identify individual trees. To filter the point cloud, enter the following into 
+    your terminal: 
+    
+    las_veg = filter_poi(las_norm, Classification == LASHIGHVEGETATION)
+    
+  CorrectAnswer: las_veg = filter_poi(las_norm, Classification == LASHIGHVEGETATION)
+  AnswerTests: omnitest(correctExpr='las_veg = filter_poi(las_norm, Classification == LASHIGHVEGETATION)')
+  Hint: |
+    Simply copy and paste the following into the terminal: 
+    
+    las_veg = filter_poi(las_norm, Classification == LASHIGHVEGETATION)
+
+- Class: cmd_question
+  Output: |
+    Now that the point cloud is normalized and filtered to high vegetation, we 
+    will use a local maximum filter algorithm to identify individual trees. A 
+    moving window is used to locate peaks in point cloud heights, which 
+    are assumed to be the tops of individual trees. In our case, we will use a 
+    window size of 3 meters for simplicity. In real life applications, you can 
+    experiment with different window sizes or write functions to change window size
+    based on vegetation heights. Enter the following into your terminal: 
+    
+    ttops = locate_trees(las_veg, lmf(ws = 3))
+    
+  CorrectAnswer: ttops = locate_trees(las_veg, lmf(ws = 3))
+  AnswerTests: omnitest(correctExpr='ttops = locate_trees(las_veg, lmf(ws = 3))')
+  Hint: |
+    Simply copy and paste the following into the terminal: 
+    
+    ttops = locate_trees(las_veg, lmf(ws = 3))
+
+- Class: mult_question
+  Output: |
+    How many trees did we identify using the local maximum filter? 
+    
+  AnswerChoices: 2797;1591;2026
+  CorrectAnswer: 2797
+  AnswerTests: omnitest(correctVal='2797')
+  Hint: |
+    Check the number of records in ttops. 
+
