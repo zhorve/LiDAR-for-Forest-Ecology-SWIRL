@@ -60,7 +60,7 @@
     American Society of Photogrammetry and Remote Sensing (ASPRS) and describe the 
     type of surface from which each laser pulse reflected. Ground points are shown 
     in blue, low vegetation in white, and high vegetation in green. Let's view 
-    these classifications in our point cloud. Enter the following into your terminal: 
+    these classifications in our point cloud. Enter the following into your terminal (this will open a new window): 
 
     plot(las, color = "Classification")
 
@@ -106,7 +106,7 @@
     Let's inspect the point cloud again. Pay close attention to the ground surface.
     You should be able to see a flat ground surface with topography removed. 
     
-    Enter the following into your terminal: 
+    Enter the following into your terminal (this will open a new window): 
     
     plot(las_norm)
     
@@ -143,14 +143,14 @@
     experiment with different window sizes or write functions to change window size
     based on vegetation heights. Enter the following into your terminal: 
     
-    ttops = locate_trees(las_veg, lmf(ws = 3))
+    ttops = locate_trees(las_veg, lmf(ws = 5))
     
-  CorrectAnswer: ttops = locate_trees(las_veg, lmf(ws = 3))
-  AnswerTests: omnitest(correctExpr='ttops = locate_trees(las_veg, lmf(ws = 3))')
+  CorrectAnswer: ttops = locate_trees(las_veg, lmf(ws = 5))
+  AnswerTests: omnitest(correctExpr='ttops = locate_trees(las_veg, lmf(ws = 5))')
   Hint: |
     Simply copy and paste the following into the terminal: 
     
-    ttops = locate_trees(las_veg, lmf(ws = 3))
+    ttops = locate_trees(las_veg, lmf(ws = 5))
 
 - Class: mult_question
   Output: |
@@ -161,4 +161,171 @@
   AnswerTests: omnitest(correctVal='2797')
   Hint: |
     Check the number of records in ttops. 
+
+
+- Class: cmd_question
+  Output: |
+    Let's check the quality of the tree identification result by plotting the tree
+    locations with the point cloud. To do so, first let's make a plot object by 
+    entering the following into your terminal: 
+    
+    x <- plot(las_veg, bg = "white", size = 4)
+    
+  CorrectAnswer: x <- plot(las_veg, bg = "white", size = 4)
+                 
+  AnswerTests: omnitest(correctExpr='x <- plot(las_veg, bg = "white", size = 4)')
+  Hint: |
+    Simply copy and paste the following into the terminal: 
+    
+    x <- plot(las_veg, bg = "white", size = 4)
+
+- Class: cmd_question
+  Output: |
+    And now let's add the tree locations by entering the following into your terminal: 
+    
+    add_treetops3d(x, ttops, z = "height")
+
+  CorrectAnswer: add_treetops3d(x, ttops, z = "height")
+                 
+  AnswerTests: omnitest(correctExpr='add_treetops3d(x, ttops, z = "height")')
+  Hint: |
+    Simply copy and paste the following into the terminal: 
+    
+    add_treetops3d(x, ttops, z = "height")
+    
+- Class: text
+  Output: |
+    As shown above, the local maximum filter performs reasonably well at identifying 
+    candidate tree tops. In applied settings, these results should be validated 
+    using field data or compared against alternative detection algorithms, as tree 
+    detection performance can vary with canopy structure, point density, and parameter 
+    choices. For now, we will continue with these tree locations to perform tree segementation.
+    
+- Class: text
+  Output: |
+    Individual tree segementation is the process of assigning points within the point
+    cloud to individual trees. This process is useful for deriving individual level
+    tree biometrics such as tree heights. With higher resolution data from UAV or 
+    terrestrial LiDAR systems, more detailed biometrics can be measured such as the
+    diameter at breast height (DBH) or volumes of individual trees. 
+    
+- Class: text
+  Output: |
+    In this dataset, point density is relatively low, which limits the range of 
+    tree-level metrics that can be reliably estimated. In practice, tree height 
+    is the primary metric that can be robustly derived, and this was already obtained 
+    during the tree detection step.
+    
+    For the sake of demonstration, we will proceed with individual tree segmentation 
+    as it illustrates a critical step of most forest LiDAR analysis workflows. 
+
+- Class: cmd_question
+  Output: |
+    To perform individual tree segmentation, we will use an algorithm developed by
+    Dalponte & Coomes 2016 (https://doi.org/10.1111/2041-210X.12575) that utilizes 
+    a canopy height model along with tree locations to segement the point cloud. 
+    To start, let's load in the CHM for this area. Enter the following into your terminal:
+    
+    chm = rast("ABBY_chm.tif")
+    
+  CorrectAnswer: chm = rast("ABBY_chm.tif")
+                 
+  AnswerTests: omnitest(correctExpr='chm = rast("ABBY_chm.tif")')
+  Hint: |
+    Simply copy and paste the following into the terminal: 
+    
+    chm = rast("ABBY_chm.tif")
+    
+- Class: cmd_question
+  Output: |
+    Now let's apply the segmentation algorithm. Enter the following into your terminal: 
+    
+    seg = segment_trees(las_veg, dalponte2016(chm, ttops), attribute = "treeID") 
+    
+  CorrectAnswer: seg = segment_trees(las_veg, dalponte2016(chm, ttops), attribute = "treeID")
+                 
+  AnswerTests: omnitest(correctExpr='seg = segment_trees(las_veg, dalponte2016(chm, ttops), attribute = "treeID")')
+  Hint: |
+    Simply copy and paste the following into the terminal: 
+    
+    seg = segment_trees(las_veg, dalponte2016(chm, ttops), attribute = "treeID") 
+
+- Class: cmd_question
+  Output: |
+    Let's investigate these segementation results by finding the tallest tree
+    in this area and viewing it by itself. First, we need to determine which tree
+    is the tallest by looking into ttops. Open the ttops dataframe by entering the
+    following into your terminal: 
+    
+    View(ttops)
+    
+  CorrectAnswer: View(ttops)
+                 
+  AnswerTests: omnitest(correctExpr='View(ttops)')
+  Hint: |
+    Simply copy and paste the following into the terminal: 
+    
+    View(ttops)
+    
+- Class: mult_question
+  Output: |
+    What is the height of the tallest tree? Note, you can sort the records by 
+    height by clickign on the Z column label.
+    
+  AnswerChoices: 56.184 m;53.221 m;45.987 m
+  CorrectAnswer: 56.184 m
+  AnswerTests: omnitest(correctVal='56.184 m')
+  Hint: |
+    Sort using the Z column label.
+    
+
+- Class: cmd_question
+  Output: |
+    Returning to the ttops dataframe, find the treeID of the tallest tree. We will 
+    use that treeID to filter the point cloud to points belonging only to that tree.
+    To do so, replace TALLEST_ID in the code below with the correct treeID and enter it
+    into your terminal:
+    
+    tallest <- filter_poi(seg, treeID == TALLEST_ID)
+    
+  CorrectAnswer: tallest <- filter_poi(seg, treeID == 1249)
+                 
+  AnswerTests: omnitest(correctExpr='tallest <- filter_poi(seg, treeID == 1249)')
+  Hint: |
+    Make sure you are checking the treeID column of the ttops record with the largest
+    Z value. 
+    
+- Class: cmd_question
+  Output: |
+    Now that we have filtered the point cloud to only points with the same treeID
+    as the tallest tree, let's view the resulting point cloud. Enter the following 
+    into your terminal: 
+    
+    plot(tallest)
+    
+  CorrectAnswer: plot(tallest)
+                 
+  AnswerTests: omnitest(correctExpr='plot(tallest)')
+  Hint: |
+    Simply enter the following into your terminal: 
+    
+    plot(tallest)
+    
+- Class: cmd_question
+  Output: |
+    We can also use the treeID codes assigned to each point in the point cloud to
+    highlight the tallest tree in a plot along with all of the other trees. To do 
+    so, we will use a custom plotting function that has already been loaded (if
+    you would like to look into the details, check the initLesson.R for this 
+    lesson). Enter the following your terminal: 
+    
+    highlight_tree(seg, 1249)
+    
+  CorrectAnswer: highlight_tree(seg, 1249)
+                 
+  AnswerTests: omnitest(correctExpr='highlight_tree(seg, 1249)')
+  Hint: |
+    Simply enter the following into your terminal: 
+    
+    highlight_tree(seg, 1249)
 

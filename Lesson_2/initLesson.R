@@ -50,4 +50,25 @@ library(dplyr)
 library(sf)
 library(terra)
 
-col = height.colors(25)
+# Function to highlight a single tree in a segmented LAS
+highlight_tree <- function(seg, treeid) {
+  
+  # 1. Create a numeric flag: 1 = target tree, 0 = others
+  plotCol <- ifelse(seg$treeID == treeid, 1L, 0L)
+  
+  # 2. Add as a LAS attribute
+  seg <- add_attribute(seg, plotCol, "plotCol")
+  
+  # 3. Define color palette
+  cols <- c("grey70", "red")
+  
+  # 4. Plot
+  plot(
+    seg,
+    color        = "plotCol",   # the new attribute
+    pal = cols,         # map 0 -> grey, 1 -> red
+    bg           = "white",
+    size         = 4
+  )
+  
+}
