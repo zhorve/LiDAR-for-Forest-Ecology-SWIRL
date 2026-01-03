@@ -156,12 +156,11 @@
   Output: |
     How many trees did we identify using the local maximum filter? 
     
-  AnswerChoices: 2797;1591;2026
-  CorrectAnswer: 2797
-  AnswerTests: omnitest(correctVal='2797')
+  AnswerChoices: 1288;1591;2026
+  CorrectAnswer: 1288
+  AnswerTests: omnitest(correctVal='1288')
   Hint: |
     Check the number of records in ttops. 
-
 
 - Class: cmd_question
   Output: |
@@ -169,15 +168,15 @@
     locations with the point cloud. To do so, first let's make a plot object by 
     entering the following into your terminal: 
     
-    x <- plot(las_veg, bg = "white", size = 4)
+    x = plot(las_veg, bg = "white", size = 4)
     
-  CorrectAnswer: x <- plot(las_veg, bg = "white", size = 4)
+  CorrectAnswer: x = plot(las_veg, bg = "white", size = 4)
                  
-  AnswerTests: omnitest(correctExpr='x <- plot(las_veg, bg = "white", size = 4)')
+  AnswerTests: omnitest(correctExpr='x = plot(las_veg, bg = "white", size = 4)')
   Hint: |
     Simply copy and paste the following into the terminal: 
     
-    x <- plot(las_veg, bg = "white", size = 4)
+    x = plot(las_veg, bg = "white", size = 4)
 
 - Class: cmd_question
   Output: |
@@ -286,11 +285,11 @@
     To do so, replace TALLEST_ID in the code below with the correct treeID and enter it
     into your terminal:
     
-    tallest <- filter_poi(seg, treeID == TALLEST_ID)
+    tallest = filter_poi(seg, treeID == TALLEST_ID)
     
-  CorrectAnswer: tallest <- filter_poi(seg, treeID == 1249)
+  CorrectAnswer: tallest = filter_poi(seg, treeID == 1249)
                  
-  AnswerTests: omnitest(correctExpr='tallest <- filter_poi(seg, treeID == 1249)')
+  AnswerTests: omnitest(correctExpr='tallest = filter_poi(seg, treeID == 1249)')
   Hint: |
     Make sure you are checking the treeID column of the ttops record with the largest
     Z value. 
@@ -328,4 +327,119 @@
     Simply enter the following into your terminal: 
     
     highlight_tree(seg, 1249)
+
+- Class: cmd_question
+  Output: |
+    As mentioned earlier, the point density of this dataset is too low to derive
+    many metrics beyond tree height. However, we can still use the locations of 
+    the trees we identified to create useful maps. For the last portion of this 
+    exercise, we will create maps of tree density and height. To start, we need to
+    create an empty raster object with the same extent as the point cloud. Enter
+    the following into your terminal to get the extent of the point cloud: 
+    
+    seg_ext = ext(seg)
+    
+  CorrectAnswer: seg_ext = ext(seg)
+                 
+  AnswerTests: omnitest(correctExpr='seg_ext = ext(seg)')
+  Hint: |
+    Simply enter the following into your terminal: 
+    
+    seg_ext = ext(seg)
+    
+- Class: cmd_question
+  Output: |
+    Next, we will create the empty raster object. We will set the resolution of the
+    raster to 20 meters for simplicity. In real life applications, the appropriate
+    resolution may vary. Enter the following into your terminal:  
+    
+    r = rast(ext = seg_ext, resolution = 20,crs = st_crs(ttops)$wkt)
+
+  CorrectAnswer: r = rast(ext = seg_ext, resolution = 20,crs = st_crs(ttops)$wkt)
+                 
+  AnswerTests: omnitest(correctExpr='r = rast(ext = seg_ext, resolution = 20,crs = st_crs(ttops)$wkt)')
+  Hint: |
+    Simply enter the following into your terminal: 
+    
+    r = rast(ext = seg_ext, resolution = 20,crs = st_crs(ttops)$wkt)
+
+- Class: cmd_question
+  Output: |
+    Now we will create a map showing the number of trees per 20 meter cell. This 
+    is done using our ttops object which contains the XY location of each tree 
+    we identified. 
+    
+    n_trees_rast = rasterize(vect(ttops), r, field = "treeID", fun = "count")
+
+  CorrectAnswer: n_trees_rast = rasterize(vect(ttops), r, field = "treeID", fun = "count")
+                 
+  AnswerTests: omnitest(correctExpr='n_trees_rast = rasterize(vect(ttops), r, field = "treeID", fun = "count")')
+  Hint: |
+    Simply enter the following into your terminal: 
+    
+    n_trees_rast = rasterize(vect(ttops), r, field = "treeID", fun = "count")
+
+- Class: cmd_question
+  Output: |
+    Since each raster cell represents a fixed area, tree density can be calculated 
+    by dividing the number of trees in a cell by its area (400 m^2). This gives density in 
+    trees per square meter. To express results in a more interpretable and widely 
+    used unit, we multiply by 10^4 to convert densities to trees per hectare.
+    
+    tree_density_ha = n_trees_rast / 400 * 1e4
+
+  CorrectAnswer: tree_density_ha = n_trees_rast / 400 * 1e4
+                 
+  AnswerTests: omnitest(correctExpr='tree_density_ha = n_trees_rast / 400 * 1e4')
+  Hint: |
+    Simply enter the following into your terminal: 
+    
+    tree_density_ha = n_trees_rast / 400 * 1e4
+    
+- Class: cmd_question
+  Output: |
+    Now let's view our map of tree density. Enter the following into your terminal: 
+    
+    plot(tree_density_ha, main = "Tree Density (trees / ha)")
+
+  CorrectAnswer: plot(tree_density_ha, main = "Tree Density (trees / ha)")
+                 
+  AnswerTests: omnitest(correctExpr='plot(tree_density_ha, main = "Tree Density (trees / ha)")')
+  Hint: |
+    Simply enter the following into your terminal: 
+    
+    plot(tree_density_ha, main = "Tree Density (trees / ha)")
+    
+- Class: cmd_question
+  Output: |
+    Similarly, we can use our template raster and ttops object to make a map of 
+    average tree height. Try this on your own, using our code from the tree count
+    map as a reference. Use Z as the field and mean as the function. Name the raster
+    mean_ht_rast.
+    
+  CorrectAnswer:  mean_ht_rast = rasterize(vect(ttops), r, field = "Z", fun = "mean")
+                 
+  AnswerTests: omnitest(correctExpr=' mean_ht_rast = rasterize(vect(ttops), r, field = "Z", fun = "mean")')
+  Hint: |
+    Here is the example code from the tree count raster:
+    
+    n_trees_rast = rasterize(vect(ttops), r, field = "treeID", fun = "count")
+    
+    To create the mean height raster, you must change the name of the object (n_trees_rast),
+    the field (currently "treeID"), and function (currently "count"). 
+    
+- Class: cmd_question
+  Output: |
+    Now that we have the map of mean tree height, let's view it! Enter the following 
+    into your terminal: 
+    
+    plot(mean_ht_rast, main = "Mean Tree Height per 20 m")
+
+  CorrectAnswer: plot(mean_ht_rast, main = "Mean Tree Height per 20 m")
+                 
+  AnswerTests: omnitest(correctExpr='plot(mean_ht_rast, main = "Mean Tree Height per 20 m")')
+  Hint: |
+    Simply enter the following into your terminal: 
+    
+    plot(mean_ht_rast, main = "Mean Tree Height per 20 m")
 
