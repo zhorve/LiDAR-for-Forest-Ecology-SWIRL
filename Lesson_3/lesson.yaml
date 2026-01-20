@@ -55,3 +55,31 @@
   
   Figure: draw_plots_fig.R
   FigureType: new
+
+- Class: cmd_question
+  Output: |
+    Let's start by reading in our plot shapefile. Please enter the following into 
+    your terminal: 
+    
+    plots = st_read("Data/plot_polys.shp")
+    
+  CorrectAnswer: plot(las)
+  AnswerTests: omnitest(correctExpr='plot(las)')
+  Hint: |
+    Just copy and paste the following into the terminal: 
+    
+    plot(las)
+
+- Class: cmd_question
+  Output: |
+    For this lesson, LiDAR point clouds from the USGS 3D Elevation Program (3DEP)
+    have been downloaded and clipped to a buffer around our plots. 
+    
+    plot(las)
+    
+  CorrectAnswer: plot(las)
+  AnswerTests: omnitest(correctExpr='plot(las)')
+  Hint: |
+    Just copy and paste the following into the terminal: 
+    
+    plot(las)

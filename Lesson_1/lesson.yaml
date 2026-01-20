@@ -44,20 +44,20 @@
     
 - Class: cmd_question
   Output: | 
-    To load the point cloud, please enter the following into the terminal: 
+    To load the point cloud, please enter the following into the console: 
     
     las= readLAS("Data/lesson_1_davenport_pc.las")
     
   CorrectAnswer: las= readLAS("Data/lesson_1_davenport_pc.las")
   AnswerTests: omnitest(correctExpr='las= readLAS("Data/lesson_1_davenport_pc.las")')
   Hint: |
-    Just copy and paste the following into the terminal: 
+    Just copy and paste the following into the console: 
     las= readLAS("Data/lesson_1_davenport_pc.las")
 
 - Class: cmd_question
   Output: |
     Our point cloud is now loaded into our R environment as an object called las. 
-    Let's take a look at it by typing the following into your terminal(this will
+    Let's take a look at it by typing the following into your console(this will
     open a new window): 
     
     plot(las)
@@ -65,7 +65,7 @@
   CorrectAnswer: plot(las)
   AnswerTests: omnitest(correctExpr='plot(las)')
   Hint: |
-    Just copy and paste the following into the terminal: plot(las)
+    Just copy and paste the following into the console: plot(las)
 
 - Class: text
   Output: | 
@@ -84,11 +84,11 @@
 - Class: cmd_question
   Output: |
     Let's learn more about this point cloud by viewing the summary. Please copy
-    and paste the following into your terminal: summary(las)
+    and paste the following into your console: summary(las)
   CorrectAnswer: summary(las)
   AnswerTests: omnitest(correctExpr='summary(las)')
   Hint: |
-    Just copy and paste the following into your terminal: summary(las)
+    Just copy and paste the following into your console: summary(las)
 
 - Class: text
   Output: |
@@ -138,21 +138,21 @@
    
 - Class: cmd_question
   Output: |
-   Let's try making a DSM from our point cloud. Enter the following into your terminal:
+   Let's try making a DSM from our point cloud. Enter the following into your console:
    dsm= rasterize_canopy(las, res= 1, algorithm = p2r())
   CorrectAnswer: dsm = rasterize_canopy(las, res= 1, algorithm = p2r())
   AnswerTests: omnitest(correctExpr='dsm = rasterize_canopy(las, res= 1, algorithm = p2r())')
   Hint: |
-   Simply type dsm = rasterize_canopy(las, res= 1, algorithm = p2r()) into your terminal.
+   Simply type dsm = rasterize_canopy(las, res= 1, algorithm = p2r()) into your console.
 
 - Class: cmd_question
   Output: |
-   Great work! Now let's view it. Enter the following into your terminal: 
+   Great work! Now let's view it. Enter the following into your console: 
    plot(dsm, col= col, main = "Digital Surface Model (1 m)")
   CorrectAnswer: plot(dsm, col = col, main = "Digital Surface Model (1 m)")
   AnswerTests: omnitest(correctExpr='plot(dsm, col = col, main = "Digital Surface Model (1 m)")')
   Hint: |
-   Simply type plot(dsm, col = col, main = "Digital Surface Model (1 m)") into your terminal.
+   Simply type plot(dsm, col = col, main = "Digital Surface Model (1 m)") into your console.
 
 - Class: text
   Output: |
@@ -173,21 +173,21 @@
    
 - Class: cmd_question
   Output: |
-   Let's make a DTM from our point cloud. Enter the following into your terminal:
+   Let's make a DTM from our point cloud. Enter the following into your console:
    dtm = rasterize_terrain(las, res= 1, algorithm = knnidw())
   CorrectAnswer: dtm = rasterize_terrain(las, res= 1, algorithm = knnidw())
   AnswerTests: omnitest(correctExpr='dtm = rasterize_terrain(las, res= 1, algorithm = knnidw())')
   Hint: |
-   Simply type dtm = rasterize_terrain(las, res= 1, algorithm = knnidw()) into your terminal.
+   Simply type dtm = rasterize_terrain(las, res= 1, algorithm = knnidw()) into your console.
 
 - Class: cmd_question
   Output: |
-   Great work! Now let's view it. Enter the following into your terminal: 
+   Great work! Now let's view it. Enter the following into your console: 
    plot(dtm, col= col, main = "Digital Terrain Model (1 m)")
   CorrectAnswer: plot(dtm, col= col, main = "Digital Terrain Model (1 m)")
   AnswerTests: omnitest(correctExpr='plot(dtm, col= col, main = "Digital Terrain Model (1 m)")')
   Hint: |
-   Simply type plot(dtm, col= col, main = "Digital Terrain Model (1 m)") into your terminal.
+   Simply type plot(dtm, col= col, main = "Digital Terrain Model (1 m)") into your console.
 
 - Class: text
   Output: |
@@ -215,20 +215,20 @@
   
 - Class: cmd_question
   Output: |
-   In R, the process is easy. Enter the following into your terminal: chm = dsm - dtm
+   In R, the process is easy. Enter the following into your console: chm = dsm - dtm
   CorrectAnswer: chm = dsm - dtm
   AnswerTests: omnitest(correctExpr='chm = dsm - dtm')
   Hint: |
-   Simply type chm = dsm - dtm into your terminal.
+   Simply type chm = dsm - dtm into your console.
 
 - Class: cmd_question
   Output: |
-   Nice job! Now let's view it. Enter the following into your terminal: 
+   Nice job! Now let's view it. Enter the following into your console: 
    plot(chm, col= col, main= "Canopy Height Model (1 m)")
   CorrectAnswer: plot(chm, col= col, main= "Canopy Height Model (1 m)")
   AnswerTests: omnitest(correctExpr='plot(chm, col= col, main= "Canopy Height Model (1 m)")')
   Hint: |
-   Simply type plot(chm, col= col, main= "Canopy Height Model (1 m)") into your terminal.
+   Simply type plot(chm, col= col, main= "Canopy Height Model (1 m)") into your console.
 
 - Class: text
   Output: |
@@ -251,22 +251,22 @@
   Output: |
    The lidR package enables us to separate planar surfaces, like roofs, from non-planar
    surfaces, like vegetation, based on the arrangement of the points in the point
-   cloud. Let's try this out. Enter the following into your terminal:
+   cloud. Let's try this out. Enter the following into your console:
    las_seg = segment_shapes(las, shp_plane(k = 25), "planar")
   CorrectAnswer: las_seg = segment_shapes(las, shp_plane(k = 25), "planar")
   AnswerTests: omnitest(correctExpr='las_seg = segment_shapes(las, shp_plane(k = 25), "planar")')
   Hint: |
-   Simply type las_seg = segment_shapes(las, shp_plane(k = 25), "planar") into your terminal.
+   Simply type las_seg = segment_shapes(las, shp_plane(k = 25), "planar") into your console.
 
 - Class: cmd_question
   Output: |
    Nice work! Now let's view the classified point cloud. Enter the following into your 
-   terminal (this will open a new window):
+   console (this will open a new window):
    plot(las_seg, color = "planar")
   CorrectAnswer: plot(las_seg, color = "planar")
   AnswerTests: omnitest(correctExpr='plot(las_seg, color = "planar")')
   Hint: |
-   Simply type plot(las_seg, color = "planar") into your terminal.
+   Simply type plot(las_seg, color = "planar") into your console.
    
 - Class: text
   Output: |
@@ -281,41 +281,41 @@
    store additional attributes, such as classification labels. In this dataset, 
    we have classified each point as planar or non-planar. Because buildings are 
    predominantly planar surfaces, we can use this classification to filter them out. 
-   To do this, type the following into your terminal: 
+   To do this, type the following into your console: 
    las_no_buildings = filter_poi(las_seg, Classification != planar)
   CorrectAnswer: las_no_buildings = filter_poi(las_seg, Classification != planar)
   AnswerTests: omnitest(correctExpr='las_no_buildings = filter_poi(las_seg, Classification != planar)')
   Hint: |
-   Simply type las_no_buildings = filter_poi(las_seg, Classification != planar) into your terminal.
+   Simply type las_no_buildings = filter_poi(las_seg, Classification != planar) into your console.
    
 - Class: cmd_question
   Output: |
    Now, let's recreate the DSM with the filtered point cloud. Enter the following
-   into your terminal: 
+   into your console: 
    dsm_no_buildings = rasterize_canopy(las_no_buildings, res= 1, algorithm = p2r())
   CorrectAnswer: dsm_no_buildings = rasterize_canopy(las_no_buildings, res= 1, algorithm = p2r())
   AnswerTests: omnitest(correctExpr='dsm_no_buildings = rasterize_canopy(las_no_buildings, res= 1, algorithm = p2r())')
   Hint: |
-   Simply type dsm_no_buildings = rasterize_canopy(las_no_buildings, res= 1, algorithm = p2r()) into your terminal.
+   Simply type dsm_no_buildings = rasterize_canopy(las_no_buildings, res= 1, algorithm = p2r()) into your console.
 
 - Class: cmd_question
   Output: |
    Now that we have our DSM without buldings, let's recreate the CHM using the same
-   method as before. Enter the following into your terminal: 
+   method as before. Enter the following into your console: 
    chm_no_buildings= dsm_no_buildings - dtm
   CorrectAnswer: chm_no_buildings= dsm_no_buildings - dtm
   AnswerTests: omnitest(correctExpr='chm_no_buildings= dsm_no_buildings - dtm')
   Hint: |
-   Simply type chm_no_buildings= dsm_no_buildings - dtm into your terminal.
+   Simply type chm_no_buildings= dsm_no_buildings - dtm into your console.
 
 - Class: cmd_question
   Output: |
-   To view the CHM without buildings, enter the following into your terminal: 
+   To view the CHM without buildings, enter the following into your console: 
    plot(chm_no_buildings, col= col, main= "Canopy Height Model, No Buildings (1 m)")
   CorrectAnswer: plot(chm_no_buildings, col= col, main= "Canopy Height Model, No Buildings (1 m)")
   AnswerTests: omnitest(correctExpr='plot(chm_no_buildings, col= col, main= "Canopy Height Model, No Buildings (1 m)")')
   Hint: |
-   Simply type plot(chm_no_buildings, col= col, main= "Canopy Height Model, No Buildings (1 m)") into your terminal.  
+   Simply type plot(chm_no_buildings, col= col, main= "Canopy Height Model, No Buildings (1 m)") into your console.  
    
 - Class: text
   Output: |

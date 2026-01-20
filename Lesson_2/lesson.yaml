@@ -28,19 +28,19 @@
     Our area of interest will cover areas with different land use histories. Part
     of the area of interest was recently logged, while the other is old growth. 
     Let's load the point cloud and visualize this. Please type the following into 
-    your terminal: 
+    your console: 
     
     las = readLAS("ABBY_pc.laz")
     
   CorrectAnswer: las = readLAS("ABBY_pc.laz")
   AnswerTests: omnitest(correctExpr='las = readLAS("ABBY_pc.laz")')
   Hint: |
-   Simply type las = readLAS("ABBY_pc.laz") into your terminal.
+   Simply type las = readLAS("ABBY_pc.laz") into your console.
 
 - Class: cmd_question
   Output: |
     Our point cloud is now loaded into our R environment as an object called las. 
-    Let's take a look at it by typing the following into your terminal(this will
+    Let's take a look at it by typing the following into your console(this will
     open a new window): 
     
     plot(las)
@@ -48,7 +48,7 @@
   CorrectAnswer: plot(las)
   AnswerTests: omnitest(correctExpr='plot(las)')
   Hint: |
-    Just copy and paste the following into the terminal: 
+    Just copy and paste the following into the console: 
     
     plot(las)
  
@@ -60,14 +60,14 @@
     American Society of Photogrammetry and Remote Sensing (ASPRS) and describe the 
     type of surface from which each laser pulse reflected. Ground points are shown 
     in blue, low vegetation in white, and high vegetation in green. Let's view 
-    these classifications in our point cloud. Enter the following into your terminal (this will open a new window): 
+    these classifications in our point cloud. Enter the following into your console (this will open a new window): 
 
     plot(las, color = "Classification")
 
   CorrectAnswer: plot(las, color = "Classification")
   AnswerTests: omnitest(correctExpr='plot(las, color = "Classification")')
   Hint: |
-    Just copy and paste the following into the terminal: 
+    Just copy and paste the following into the console: 
     
     plot(las, color = "Classification")
 
@@ -89,14 +89,14 @@
     a DTM from the point cloud heights. By normalizing the point cloud, we also 
     remove the influence of topography, allowing tree heights and canopy structure 
     to be compared consistently across the landscape. To normalize the point cloud, 
-    enter the following into your terminal: 
+    enter the following into your console: 
     
     las_norm = normalize_height(las, algorithm = knnidw())
     
   CorrectAnswer: las_norm = normalize_height(las, algorithm = knnidw())
   AnswerTests: omnitest(correctExpr='las_norm = normalize_height(las, algorithm = knnidw())')
   Hint: |
-    Simply copy and paste the following into the terminal: 
+    Simply copy and paste the following into the console: 
     
     las_norm = normalize_height(las, algorithm = knnidw())
 
@@ -106,14 +106,14 @@
     Let's inspect the point cloud again. Pay close attention to the ground surface.
     You should be able to see a flat ground surface with topography removed. 
     
-    Enter the following into your terminal (this will open a new window): 
+    Enter the following into your console (this will open a new window): 
     
     plot(las_norm)
     
   CorrectAnswer: plot(las_norm)
   AnswerTests: omnitest(correctExpr='plot(las_norm)')
   Hint: |
-    Simply copy and paste the following into the terminal: 
+    Simply copy and paste the following into the console: 
     
     plot(las_norm)
 
@@ -122,14 +122,14 @@
     We can also use the ASPRS classifications to filter the points to those that
     are high vegetation. This will ensure that only tree points will be used to 
     identify individual trees. To filter the point cloud, enter the following into 
-    your terminal: 
+    your console: 
     
     las_veg = filter_poi(las_norm, Classification == LASHIGHVEGETATION)
     
   CorrectAnswer: las_veg = filter_poi(las_norm, Classification == LASHIGHVEGETATION)
   AnswerTests: omnitest(correctExpr='las_veg = filter_poi(las_norm, Classification == LASHIGHVEGETATION)')
   Hint: |
-    Simply copy and paste the following into the terminal: 
+    Simply copy and paste the following into the console: 
     
     las_veg = filter_poi(las_norm, Classification == LASHIGHVEGETATION)
 
@@ -141,14 +141,14 @@
     are assumed to be the tops of individual trees. In our case, we will use a 
     window size of 3 meters for simplicity. In real life applications, you can 
     experiment with different window sizes or write functions to change window size
-    based on vegetation heights. Enter the following into your terminal: 
+    based on vegetation heights. Enter the following into your console: 
     
     ttops = locate_trees(las_veg, lmf(ws = 5))
     
   CorrectAnswer: ttops = locate_trees(las_veg, lmf(ws = 5))
   AnswerTests: omnitest(correctExpr='ttops = locate_trees(las_veg, lmf(ws = 5))')
   Hint: |
-    Simply copy and paste the following into the terminal: 
+    Simply copy and paste the following into the console: 
     
     ttops = locate_trees(las_veg, lmf(ws = 5))
 
@@ -166,7 +166,7 @@
   Output: |
     Let's check the quality of the tree identification result by plotting the tree
     locations with the point cloud. To do so, first let's make a plot object by 
-    entering the following into your terminal: 
+    entering the following into your console: 
     
     x = plot(las_veg, bg = "white", size = 4)
     
@@ -174,13 +174,13 @@
                  
   AnswerTests: omnitest(correctExpr='x = plot(las_veg, bg = "white", size = 4)')
   Hint: |
-    Simply copy and paste the following into the terminal: 
+    Simply copy and paste the following into the console: 
     
     x = plot(las_veg, bg = "white", size = 4)
 
 - Class: cmd_question
   Output: |
-    And now let's add the tree locations by entering the following into your terminal: 
+    And now let's add the tree locations by entering the following into your console: 
     
     add_treetops3d(x, ttops, z = "height")
 
@@ -188,7 +188,7 @@
                  
   AnswerTests: omnitest(correctExpr='add_treetops3d(x, ttops, z = "height")')
   Hint: |
-    Simply copy and paste the following into the terminal: 
+    Simply copy and paste the following into the console: 
     
     add_treetops3d(x, ttops, z = "height")
     
@@ -223,7 +223,7 @@
     To perform individual tree segmentation, we will use an algorithm developed by
     Dalponte & Coomes 2016 (https://doi.org/10.1111/2041-210X.12575) that utilizes 
     a canopy height model along with tree locations to segement the point cloud. 
-    To start, let's load in the CHM for this area. Enter the following into your terminal:
+    To start, let's load in the CHM for this area. Enter the following into your console:
     
     chm = rast("ABBY_chm.tif")
     
@@ -231,13 +231,13 @@
                  
   AnswerTests: omnitest(correctExpr='chm = rast("ABBY_chm.tif")')
   Hint: |
-    Simply copy and paste the following into the terminal: 
+    Simply copy and paste the following into the console: 
     
     chm = rast("ABBY_chm.tif")
     
 - Class: cmd_question
   Output: |
-    Now let's apply the segmentation algorithm. Enter the following into your terminal: 
+    Now let's apply the segmentation algorithm. Enter the following into your console: 
     
     seg = segment_trees(las_veg, dalponte2016(chm, ttops), attribute = "treeID") 
     
@@ -245,7 +245,7 @@
                  
   AnswerTests: omnitest(correctExpr='seg = segment_trees(las_veg, dalponte2016(chm, ttops), attribute = "treeID")')
   Hint: |
-    Simply copy and paste the following into the terminal: 
+    Simply copy and paste the following into the console: 
     
     seg = segment_trees(las_veg, dalponte2016(chm, ttops), attribute = "treeID") 
 
@@ -254,7 +254,7 @@
     Let's investigate these segementation results by finding the tallest tree
     in this area and viewing it by itself. First, we need to determine which tree
     is the tallest by looking into ttops. Open the ttops dataframe by entering the
-    following into your terminal: 
+    following into your console: 
     
     View(ttops)
     
@@ -262,7 +262,7 @@
                  
   AnswerTests: omnitest(correctExpr='View(ttops)')
   Hint: |
-    Simply copy and paste the following into the terminal: 
+    Simply copy and paste the following into the console: 
     
     View(ttops)
     
@@ -283,7 +283,7 @@
     Returning to the ttops dataframe, find the treeID of the tallest tree. We will 
     use that treeID to filter the point cloud to points belonging only to that tree.
     To do so, replace TALLEST_ID in the code below with the correct treeID and enter it
-    into your terminal:
+    into your console:
     
     tallest = filter_poi(seg, treeID == TALLEST_ID)
     
@@ -298,7 +298,7 @@
   Output: |
     Now that we have filtered the point cloud to only points with the same treeID
     as the tallest tree, let's view the resulting point cloud. Enter the following 
-    into your terminal: 
+    into your console: 
     
     plot(tallest)
     
@@ -306,7 +306,7 @@
                  
   AnswerTests: omnitest(correctExpr='plot(tallest)')
   Hint: |
-    Simply enter the following into your terminal: 
+    Simply enter the following into your console: 
     
     plot(tallest)
     
@@ -316,7 +316,7 @@
     highlight the tallest tree in a plot along with all of the other trees. To do 
     so, we will use a custom plotting function that has already been loaded (if
     you would like to look into the details, check the initLesson.R for this 
-    lesson). Enter the following your terminal: 
+    lesson). Enter the following your console: 
     
     highlight_tree(seg, 1249)
     
@@ -324,7 +324,7 @@
                  
   AnswerTests: omnitest(correctExpr='highlight_tree(seg, 1249)')
   Hint: |
-    Simply enter the following into your terminal: 
+    Simply enter the following into your console: 
     
     highlight_tree(seg, 1249)
 
@@ -335,7 +335,7 @@
     the trees we identified to create useful maps. For the last portion of this 
     exercise, we will create maps of tree density and height. To start, we need to
     create an empty raster object with the same extent as the point cloud. Enter
-    the following into your terminal to get the extent of the point cloud: 
+    the following into your console to get the extent of the point cloud: 
     
     seg_ext = ext(seg)
     
@@ -343,7 +343,7 @@
                  
   AnswerTests: omnitest(correctExpr='seg_ext = ext(seg)')
   Hint: |
-    Simply enter the following into your terminal: 
+    Simply enter the following into your console: 
     
     seg_ext = ext(seg)
     
@@ -351,7 +351,7 @@
   Output: |
     Next, we will create the empty raster object. We will set the resolution of the
     raster to 20 meters for simplicity. In real life applications, the appropriate
-    resolution may vary. Enter the following into your terminal:  
+    resolution may vary. Enter the following into your console:  
     
     r = rast(ext = seg_ext, resolution = 20,crs = st_crs(ttops)$wkt)
 
@@ -359,7 +359,7 @@
                  
   AnswerTests: omnitest(correctExpr='r = rast(ext = seg_ext, resolution = 20,crs = st_crs(ttops)$wkt)')
   Hint: |
-    Simply enter the following into your terminal: 
+    Simply enter the following into your console: 
     
     r = rast(ext = seg_ext, resolution = 20,crs = st_crs(ttops)$wkt)
 
@@ -375,7 +375,7 @@
                  
   AnswerTests: omnitest(correctExpr='n_trees_rast = rasterize(vect(ttops), r, field = "treeID", fun = "count")')
   Hint: |
-    Simply enter the following into your terminal: 
+    Simply enter the following into your console: 
     
     n_trees_rast = rasterize(vect(ttops), r, field = "treeID", fun = "count")
 
@@ -392,13 +392,13 @@
                  
   AnswerTests: omnitest(correctExpr='tree_density_ha = n_trees_rast / 400 * 1e4')
   Hint: |
-    Simply enter the following into your terminal: 
+    Simply enter the following into your console: 
     
     tree_density_ha = n_trees_rast / 400 * 1e4
     
 - Class: cmd_question
   Output: |
-    Now let's view our map of tree density. Enter the following into your terminal: 
+    Now let's view our map of tree density. Enter the following into your console: 
     
     plot(tree_density_ha, main = "Tree Density (trees / ha)")
 
@@ -406,7 +406,7 @@
                  
   AnswerTests: omnitest(correctExpr='plot(tree_density_ha, main = "Tree Density (trees / ha)")')
   Hint: |
-    Simply enter the following into your terminal: 
+    Simply enter the following into your console: 
     
     plot(tree_density_ha, main = "Tree Density (trees / ha)")
     
@@ -431,7 +431,7 @@
 - Class: cmd_question
   Output: |
     Now that we have the map of mean tree height, let's view it! Enter the following 
-    into your terminal: 
+    into your console: 
     
     plot(mean_ht_rast, main = "Mean Tree Height per 20 m")
 
@@ -439,7 +439,7 @@
                  
   AnswerTests: omnitest(correctExpr='plot(mean_ht_rast, main = "Mean Tree Height per 20 m")')
   Hint: |
-    Simply enter the following into your terminal: 
+    Simply enter the following into your console: 
     
     plot(mean_ht_rast, main = "Mean Tree Height per 20 m")
 
