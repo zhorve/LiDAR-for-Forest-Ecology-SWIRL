@@ -1,0 +1,57 @@
+- Class: meta
+  Course: LiDAR for Forest Ecology
+  Lesson: Lesson_3
+  Author: Zack Horve
+  Type: Standard
+  Organization: Purdue University
+  Version: 2.4.5
+
+- Class: text
+  Output: |
+    Welcome to Lesson 2 of LiDAR for Forest Ecology! In this lesson, you
+    will learn how to quantify forest structural diversity using LiDAR through 
+    an example ecological analysis comparing edge and core forest plots. Additionally, 
+    you will use a LiDAR-derived canopy height model to create a wall-to-wall map 
+    of forest structural diversity. 
+    
+- Class: figure
+  Output: |
+    Before we begin, let's first establish what forest structural diversity is 
+    and why it is important. Forest structural diversity describes the complexity 
+    of vegetation composition and spatial arrangement within a forest ecosystem. 
+    Although long recognized as an important ecological attribute, structural 
+    diversity has historically been difficult to measure at broad spatial scales. 
+    Recent advances in airborne and terrestrial LiDAR enabled, quantification of 
+    structural diversity at scale, allowing for greater advances in structural diversity 
+    research. 
+
+    Using LiDAR, structural diversity has been shown to underpin key ecosystem 
+    functions, including productivity, nutrient cycling, and the support 
+    of forest biodiversity through habitat provisioning. As a result, monitoring 
+    structural diversity at scale has been recognized as essential for 
+    informing forest management and promoting ecosystem resilience and functioning.
+    
+  Figure: draw_SD_fig.R
+  FigureType: new
+    
+
+- Class: text
+  Output: |
+    To illustrate how forest structural diversity can be quantified using LiDAR, 
+    we begin with an example analysis examining the effects of forest fragmentation. 
+    Forest fragmentation breaks continuous forest landscapes into smaller, isolated 
+    patches, creating contrasting environmental conditions between forest edges 
+    and interior areas. In this first exercise, we will use airborne LiDAR to 
+    evaluate how these edge effects influence forest structural diversity by 
+    comparing edge and core forest plots around Lafayette, Indiana.
+    
+- Class: figure
+  Output: |
+    In total, there are 20 total plots with 15 meter radii. Ten plots are located
+    in core forests (> 30 meters from nearest edge) and ten plots are located
+    on forest edges adjacent to agricultural land use. Note that the sample size
+    is extremely limited-- in a real ecological analysis, a larger sample size would be 
+    required.
+  
+  Figure: draw_plots_fig.R
+  FigureType: new
