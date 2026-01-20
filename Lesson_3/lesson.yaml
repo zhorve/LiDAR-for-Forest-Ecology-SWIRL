@@ -63,23 +63,59 @@
     
     plots = st_read("Data/plot_polys.shp")
     
-  CorrectAnswer: plot(las)
-  AnswerTests: omnitest(correctExpr='plot(las)')
+  CorrectAnswer: plots = st_read("Data/plot_polys.shp")
+  AnswerTests: omnitest(correctExpr='plots = st_read("Data/plot_polys.shp")')
   Hint: |
-    Just copy and paste the following into the terminal: 
+    Simply copy and paste the following into the terminal: 
     
-    plot(las)
+    plots = st_read("Data/plot_polys.shp")
+
+- Class: text
+  Output: |
+    For this lesson, LiDAR point clouds from the USGS 3D Elevation Program (3DEP) 
+    have been downloaded and clipped to a buffer around our plots. Rather than 
+    reading and processing each file individually, we process the data in batches. 
+    This is done using a LAScatalog from the lidR package, which represents a 
+    collection of LiDAR files without loading all of them into memory. Using a 
+    LAScatalog allows us to efficiently compute metrics for all plots in our plot 
+    shapefile, making it practical to work with large LiDAR datasets with multiple
+    .las files.
+    
+- Class: cmd_question
+  Output: |
+    Let's read in our LiDAR data using a LAScatalog. Please enter the following 
+    into your console: 
+    
+    ctg = readLAScatalog("Data/LAS")
+    
+  CorrectAnswer: ctg = readLAScatalog("Data/LAS"))
+  AnswerTests: omnitest(correctExpr='ctg = readLAScatalog("Data/LAS")')
+  Hint: |
+    Simply copy and paste the following into the terminal: 
+    
+    ctg = readLAScatalog("Data/LAS")
 
 - Class: cmd_question
   Output: |
-    For this lesson, LiDAR point clouds from the USGS 3D Elevation Program (3DEP)
-    have been downloaded and clipped to a buffer around our plots. 
+    And now let's check our data out. Please enter the following into your console: 
     
-    plot(las)
+    summary(ctg)
     
-  CorrectAnswer: plot(las)
-  AnswerTests: omnitest(correctExpr='plot(las)')
+  CorrectAnswer: summary(ctg)
+  AnswerTests: omnitest(correctExpr='summary(ctg)')
   Hint: |
-    Just copy and paste the following into the terminal: 
+    Simply copy and paste the following into the terminal: 
     
-    plot(las)
+    summary(ctg)
+    
+
+- Class: mult_question
+  Output: |
+    How many individual LAS files are included in our LAScatalog?  
+    
+  AnswerChoices: 20;25;15
+  CorrectAnswer: 20
+  AnswerTests: omnitest(correctVal='20')
+  Hint: |
+    Check the num. files row in the summary output.  
+    
