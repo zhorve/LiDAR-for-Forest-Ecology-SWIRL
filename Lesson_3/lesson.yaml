@@ -99,16 +99,15 @@
   Output: |
     And now let's check our data out. Please enter the following into your console: 
     
-    summary(ctg)
+    ctg
     
-  CorrectAnswer: summary(ctg)
-  AnswerTests: omnitest(correctExpr='summary(ctg)')
+  CorrectAnswer: ctg
+  AnswerTests: omnitest(correctExpr='ctg')
   Hint: |
     Simply copy and paste the following into the terminal: 
     
-    summary(ctg)
+    ctg
     
-
 - Class: mult_question
   Output: |
     How many individual LAS files are included in our LAScatalog?  
@@ -118,4 +117,73 @@
   AnswerTests: omnitest(correctVal='20')
   Hint: |
     Check the num. files row in the summary output.  
+
+
+- Class: text
+  Output: |
+    For the sake of time in this exercise, some preprocessing steps have already
+    been completed. All point clouds have been normalized and have been filtered 
+    to remove outlier points. In a real world example, these would be necessary steps
+    before calculating any metrics at the plot level. 
+    
+- Class: cmd_question
+  Output: |
+    Now that we have our LAScatalog and plot shapefile loaded, let's try calculating 
+    some metrics! Because we are interested in vegetation points (i.e. non-ground points),
+    we need to first set a filter to remove points below a threshold of 0.5 meters
+    to eliminate ground points. To do so, please enter the following into your console: 
+    
+    opt_filter(ctg) <- "-drop_z_below 0.5"
+
+    
+  CorrectAnswer: opt_filter(ctg) <- "-drop_z_below 0.5"
+  AnswerTests: omnitest(correctExpr='opt_filter(ctg) <- "-drop_z_below 0.5"')
+  Hint: |
+    Simply copy and paste the following into the console: 
+    
+    opt_filter(ctg) <- "-drop_z_below 0.5"
+    
+- Class: cmd_question
+  Output: |
+    Next, we will use a function built into the lidR package to calculate a suite 
+    of basic structural metrics for each plot. These metrics rely on the distribution
+    of point heights within the point cloud clipped to each plot polygon. Please
+    enter the following into your console: 
+    
+    standard_metrics = plot_metrics(ctg, .stdmetrics, geometry = plots)
+
+  CorrectAnswer: standard_metrics = plot_metrics(ctg, .stdmetrics, geometry = plots)
+  AnswerTests: omnitest(correctExpr='standard_metrics = plot_metrics(ctg, .stdmetrics, geometry = plots)')
+  Hint: |
+    Simply copy and paste the following into the console: 
+    
+    standard_metrics = plot_metrics(ctg, .stdmetrics, geometry = plots)
+    
+    
+- Class: cmd_question
+  Output: |
+    Let's explore these metrics. Please enter the following into your console: 
+    
+    View(standard_metrics)
+
+  CorrectAnswer: View(standard_metrics)
+  AnswerTests: omnitest(correctExpr='View(standard_metrics)')
+  Hint: |
+    Simply copy and paste the following into the console: 
+    
+    View(standard_metrics)
+    
+- Class: text
+  Output: |
+    This suite of basic point cloud metrics summarizes the vertical distribution 
+    of LiDAR returns within each plot. Collectively, these metrics describe key 
+    properties of vegetation height, including the maximum height (zmax), mean 
+    height (zmean), and various distributional metrics including height of different 
+    quartiles. Because the point clouds have been filtered to non-ground returns in 
+    forested areas, these statistics can be interpreted as characterizing the 
+    distribution of vegetation heights within each plot, providing  a foundational 
+    description of forest vertical structure. 
+    
+    
+    
     
