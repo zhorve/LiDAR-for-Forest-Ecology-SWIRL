@@ -39,3 +39,17 @@ missing <- pkgs[!vapply(pkgs, requireNamespace, logical(1), quietly = TRUE)]
 if (length(missing) > 0) {
   install.packages(missing)
 }
+
+library(sf)
+library(lidR)
+library(dplyr)
+library(terra)
+
+
+VAI = function(Z){
+  
+  lad = LAD(Z, dz = 1, k = 0.5, z0 = 2)
+  
+  lai = sum(lad$lad, na.rm = T)
+  
+}

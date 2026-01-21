@@ -118,7 +118,6 @@
   Hint: |
     Check the num. files row in the summary output.  
 
-
 - Class: text
   Output: |
     For the sake of time in this exercise, some preprocessing steps have already
@@ -133,15 +132,15 @@
     we need to first set a filter to remove points below a threshold of 0.5 meters
     to eliminate ground points. To do so, please enter the following into your console: 
     
-    opt_filter(ctg) <- "-drop_z_below 0.5"
+    opt_filter(ctg) = "-drop_z_below 0.5"
 
     
-  CorrectAnswer: opt_filter(ctg) <- "-drop_z_below 0.5"
-  AnswerTests: omnitest(correctExpr='opt_filter(ctg) <- "-drop_z_below 0.5"')
+  CorrectAnswer: opt_filter(ctg) = "-drop_z_below 0.5"
+  AnswerTests: omnitest(correctExpr='opt_filter(ctg) = "-drop_z_below 0.5"')
   Hint: |
     Simply copy and paste the following into the console: 
     
-    opt_filter(ctg) <- "-drop_z_below 0.5"
+    opt_filter(ctg) = "-drop_z_below 0.5"
     
 - Class: cmd_question
   Output: |
@@ -181,9 +180,224 @@
     height (zmean), and various distributional metrics including height of different 
     quartiles. Because the point clouds have been filtered to non-ground returns in 
     forested areas, these statistics can be interpreted as characterizing the 
-    distribution of vegetation heights within each plot, providing  a foundational 
-    description of forest vertical structure. 
+    distribution of vegetation heights within each plot, providing  a description
+    of forest vertical structure. 
     
+- Class: cmd_question
+  Output: |
+    Using these metrics, we can compare the structural makeup of our different plot 
+    types. For example, we can examine the differences in maximum vegetation height
+    distribution between the plot types by entering the following to the console: 
     
+    boxplot(zmax ~ category, data = standard_metrics)
+
+  CorrectAnswer: boxplot(zmax ~ category, data = standard_metrics)
+  AnswerTests: omnitest(correctExpr='boxplot(zmax ~ category, data = standard_metrics)')
+  Hint: |
+    Simply copy and paste the following into the console: 
     
+    boxplot(zmax ~ category, data = standard_metrics)
+    
+- Class: cmd_question
+  Output: |
+    In our sample plots, core forests tend to have greater maximum vegetation heights.
+    However, maximum height may not be the best statistic to characterize vegetation 
+    heights wihtin the plots as it only takes the highest Z value in the point 
+    cloud into consideration. A better option may be considering the mean Z value 
+    of the vegetation points in our plot. Let's plot the distributions of mean
+    vegetation heights by entering the following into our console: 
+    
+    boxplot(zmean ~ category, data = standard_metrics)
+
+  CorrectAnswer: boxplot(zmean ~ category, data = standard_metrics)
+  AnswerTests: omnitest(correctExpr='boxplot(zmean ~ category, data = standard_metrics)')
+  Hint: |
+    Simply copy and paste the following into the console: 
+    
+    boxplot(zmean ~ category, data = standard_metrics)
+    
+- Class: text
+  Output: |
+    By plotting the distributions the mean vegetation point height, we can see a 
+    similiar pattern-- core forest plots tend to have taller vegetation than ag 
+    edge forest plots. Ecologically, this makes sense as forest edges in Indiana
+    tend to have higher prevelance of short-statured invasive shrubs (Dillon et al.2018),
+    which would result in more returns in the lower part of the canopy, decreasing
+    the mean height. 
+    
+- Class: cmd_question
+  Output: |
+    In our suite of point cloud metrics, we also have several metrics that capture
+    the internal heterogeneity of vegetation arrangement within our plots. The most simple
+    measure of internal heterogeneity is the standard deviation of vegetation heights, 
+    which provides a measure of the spread of point Z values relative to the mean. 
+    A higher standard deviation may indicate greater spread of points and a greater 
+    variety of vegetation structures. 
+    
+    Let's compare the standard deviation of point heights between the two categories
+    of plots by entering the following into our console: 
+    
+    boxplot(zsd ~ category, data = standard_metrics)
+
+  CorrectAnswer: boxplot(zsd ~ category, data = standard_metrics)
+  AnswerTests: omnitest(correctExpr='boxplot(zsd ~ category, data = standard_metrics)')
+  Hint: |
+    Simply copy and paste the following into the console: 
+    
+    boxplot(zsd ~ category, data = standard_metrics)    
+    
+- Class: text
+  Output: |
+    In terms of internal heterogeneity, we see less clear separation between core 
+    and edge forest plots. Typically, there is greater internal heterogeneity in 
+    core forests than edge forests due to the formation of multilayered canopies.
+    In our case, however, there may be some error due to the small sample size.
+    
+- Class: text
+  Output: |
+    Another common metric to characterize forest structural diversity is vegetation area 
+    index (VAI), which quantifies the area of vegetation per unit of ground area. 
+    VAI captures the number of layers overlaying the ground area and the overall 
+    density of vegetation, and it is related to canopy light interception and 
+    consequently, productivity. 
+    
+- Class: cmd_question
+  Output: |
+    We can estimate VAI using our LiDAR point cloud. For the purposes of this lesson,
+    we will not dive into the details of how we estimate VAI, but if you are interested
+    in learning more, Bouvier et al. 2015 (https://doi.org/10.1016/j.rse.2014.10.004) 
+    provide a strong explanation of how VAI is calculated. For now, we can use a 
+    prewritten function to calculate VAI for each of our plots. Please enter the
+    following into your console: 
+    
+    plot_vai = plot_metrics(ctg, ~VAI(Z), geometry = plots)
+
+  CorrectAnswer: plot_vai = plot_metrics(ctg, ~VAI(Z), geometry = plots)
+  AnswerTests: omnitest(correctExpr='plot_vai = plot_metrics(ctg, ~VAI(Z), geometry = plots)')
+  Hint: |
+    Simply copy and paste the following into the console: 
+    
+    plot_vai = plot_metrics(ctg, ~VAI(Z), geometry = plots)    
+    
+- Class: cmd_question
+  Output: |
+    Now, let's compare VAI between the two plot types. Please enter the following
+    into the console: 
+    
+    boxplot(V1 ~ category, data = plot_vai, ylab = "VAI")
+
+  CorrectAnswer: boxplot(V1 ~ category, data = plot_vai, ylab = "VAI")
+  AnswerTests: omnitest(correctExpr='boxplot(V1 ~ category, data = plot_vai, ylab = "VAI")')
+  Hint: |
+    Simply copy and paste the following into the console: 
+    
+    boxplot(V1 ~ category, data = plot_vai, ylab = "VAI")   
+    
+- Class: text
+  Output: |
+    In our plot, we can see that core forests tend to have higher VAI than edge forests,
+    meaning that they have higher vegetation density and potentially greater productivity.
+    
+    In summary, we found that forest edges were shorter and less dense than forest
+    cores, but had approximately the same levels of internal heterogeneity compared
+    to core forest plots. *sentence about the significance of this*
+    
+- Class: text
+  Output: |
+    While a plot-based approach may be appropriate for some experimental designs,
+    management-focused applications may require wall-to-wall maps of forest structural
+    diversity for a large forested area in order to identify structural diversity 
+    hotspots or areas where management practices to increase structural diversity
+    can be implemented. 
+    
+    In the rest of this lesson, we will introduce an additional structural diversity
+    metric and produce wall-to-wall structural diversity maps of Purdue University 
+    Martell Forest using a canopy height model. 
+   
+- Class: cmd_question
+  Output: |
+    Remember that a CHM is a point cloud-derived raster of the height of the outer 
+    canopy surface above ground. In our case, this CHM has been created for Martell 
+    Forest using the same 3DEP LiDAR dataset as our previous exercise. For the 
+    sake of time, we will not go through the steps of creating a CHM from the LiDAR 
+    point cloud, but instead read in a CHM already created for our study area. To 
+    read in the CHM, please enter the following into your console: 
+    
+    martell_chm = rast("martell_chm.tif")
+
+  CorrectAnswer: martell_chm = rast("martell_chm.tif")
+  AnswerTests: omnitest(correctExpr='martell_chm = rast("martell_chm.tif")')
+  Hint: |
+    Simply copy and paste the following into the console: 
+    
+    martell_chm = rast("martell_chm.tif")       
+
+- Class: text
+  Output: |
+    Earlier in this lesson, we learned how to characterize the height, internal
+    heterogeneity, and density of forested plots using a point cloud. While these
+    are informative metrics, they may be difficult to calculate at scales required
+    for wall-to-wall maps. To do so would require calculating each metric from the
+    point cloud for each pixel, of which there could be thousands. 
+    
+    Top rugosity is a measure of the external heterogeneity of the canopy surface. 
+    It is calculated as the standard deviation of CHM values within a specified area.
+    Since it is calculated using a CHM instead of a raw point cloud, it is better 
+    suited for wall-to-wall maps of structural diversity as it is much less 
+    computationally expensive. 
+    
+- Class: cmd_question
+  Output: |
+    Let's create a map of top rugosity for Martell Forest. The first step is to
+    mask out pixels that are not considered forest canopy as inclusion of ground
+    pixels will influence our top rugosity calculations. Since our area is not
+    in an urban environment and contains few buildings, we can assume that all
+    pixels with heights above a threshold can be considered forest canopy. For 
+    this exercise, we will set the threshold at 5 meters (this may not be an
+    appropriate threshold for all situations). Please enter the following into
+    your console: 
+    
+    martell_chm[martell_chm <= 5] <- NA
+
+  CorrectAnswer: martell_chm[martell_chm <= 5] <- NA
+  AnswerTests: omnitest(correctExpr='martell_chm[martell_chm <= 5] <- NA')
+  Hint: |
+    Simply copy and paste the following into the console: 
+    
+    martell_chm[martell_chm <= 5] <- NA    
+
+- Class: cmd_question
+  Output: |
+    If we view our CHM again, we can see that non-canopy vegetation (< 2 m) have
+    been removed. Please enter the following into your console: 
+    
+    plot(martell_chm)
+
+  CorrectAnswer: plot(martell_chm)
+  AnswerTests: omnitest(correctExpr='plot(martell_chm)')
+  Hint: |
+    Simply copy and paste the following into the console: 
+    
+    plot(martell_chm)     
+
+- Class: cmd_question
+  Output: |
+    Now that we have our canopy map, we can create a map of top rugosity. We will
+    use a pixel size of 10 meters for our map. For each 10x10 meter pixel, the 
+    standard deviation of CHM values within the area will be taken. Non-canopy 
+    pixels will not be included, as we have set those to NA. To create the map,
+    please enter the following into your console: 
+    
+    top_rugosity_wtw <- aggregate(martell_chm, fact = 10, fun = sd, na.rm = TRUE)
+
+  CorrectAnswer: plot(martell_chm)
+  AnswerTests: omnitest(correctExpr='plot(martell_chm)')
+  Hint: |
+    Simply copy and paste the following into the console: 
+    
+    plot(martell_chm)     
+    
+# ok here we need something about the significance of this map / top rugosity
+
+# then we need something to tie everything together... 
     
