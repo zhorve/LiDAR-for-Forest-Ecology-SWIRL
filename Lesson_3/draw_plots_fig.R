@@ -1,4 +1,4 @@
-img <- png::readPNG("Lesson_3/plots_fig.png")
+img <- png::readPNG("plots_fig.png")
 plot(0:1, 0:1, type = "n", xlab = "", ylab = "", axes = FALSE)
 rasterImage(img, 0, 0, 1, 1)
 

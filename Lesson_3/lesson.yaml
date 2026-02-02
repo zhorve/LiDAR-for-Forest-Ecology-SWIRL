@@ -24,7 +24,7 @@
     Recent advances in airborne and terrestrial LiDAR enabled, quantification of 
     structural diversity at scale, allowing for greater advances in structural diversity 
     research. 
-j
+
     Using LiDAR, structural diversity has been shown to underpin key ecosystem 
     functions, including productivity, nutrient cycling, and the support 
     of forest biodiversity through habitat provisioning. As a result, monitoring 
@@ -319,14 +319,14 @@ j
     point cloud, but instead read in a CHM already created for our study area. To 
     read in the CHM, please enter the following into your console: 
     
-    martell_chm = rast("martell_chm.tif")
+    martell_chm = rast("Data/martell_chm.tif")
 
-  CorrectAnswer: martell_chm = rast("martell_chm.tif")
-  AnswerTests: omnitest(correctExpr='martell_chm = rast("martell_chm.tif")')
+  CorrectAnswer: martell_chm = rast("Data/martell_chm.tif")
+  AnswerTests: omnitest(correctExpr='martell_chm = rast("Data/martell_chm.tif")')
   Hint: |
     Simply copy and paste the following into the console: 
     
-    martell_chm = rast("martell_chm.tif")       
+    martell_chm = rast("Data/martell_chm.tif")      
 
 - Class: text
   Output: |
