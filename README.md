@@ -7,6 +7,24 @@ You will learn to work with airborne LiDAR point clouds to derive canopy height 
 
 ---
 
+## Getting Started
+
+Follow these steps to set up the course:
+
+1. **Install R and RStudio**  
+   - R: [https://cran.r-project.org/](https://cran.r-project.org/)  
+   - RStudio: [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/)
+
+2. **Install the `swirl` package** in R:  
+   ```r
+   install.packages("swirl")
+   
+3. **Install the course from GitHub**  
+   In R or RStudio, run the following command:  
+   ```r
+   swirl::install_course_github("zhorve/LiDAR-for-Forest_Ecology-SWIRL")
+
+
 ## Course Lessons
 
 ### Lesson 1: Introduction to LiDAR Point Clouds
@@ -47,5 +65,5 @@ This course is designed for:
 
 ## References & Resources
 - `lidR` documentation: [https://github.com/r-lidar/lidR](https://github.com/r-lidar/lidR)
-- Dalponte & Coomes (2016) tree segmentation algorithm: https://doi.org/10.1111/2041-210X.12575
 - NEON LiDAR data: [https://www.neonscience.org/data-products](https://www.neonscience.org/data-products)
+- USGS 3DEP data: [https://www.usgs.gov/3d-elevation-program]
