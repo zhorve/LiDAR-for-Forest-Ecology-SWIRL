@@ -8,7 +8,7 @@
 
 - Class: text
   Output: |
-    Welcome to Lesson 2 of LiDAR for Forest Ecology! In this lesson, you
+    Welcome to Lesson 3 of LiDAR for Forest Ecology! In this lesson, you
     will learn how to quantify forest structural diversity using LiDAR through 
     an example ecological analysis comparing edge and core forest plots. Additionally, 
     you will use a LiDAR-derived canopy height model to create a wall-to-wall map 
@@ -24,12 +24,12 @@
     Recent advances in airborne and terrestrial LiDAR enabled, quantification of 
     structural diversity at scale, allowing for greater advances in structural diversity 
     research. 
-
+j
     Using LiDAR, structural diversity has been shown to underpin key ecosystem 
     functions, including productivity, nutrient cycling, and the support 
     of forest biodiversity through habitat provisioning. As a result, monitoring 
-    structural diversity at scale has been recognized as essential for 
-    informing forest management and promoting ecosystem resilience and functioning.
+    structural diversity at scale has been recognized as important for 
+    informing forest management and promoting ecosystem functioning.
     
   Figure: draw_SD_fig.R
   FigureType: new
@@ -39,7 +39,7 @@
   Output: |
     To illustrate how forest structural diversity can be quantified using LiDAR, 
     we begin with an example analysis examining the effects of forest fragmentation. 
-    Forest fragmentation breaks continuous forest landscapes into smaller, isolated 
+    Forest fragmentation breaks continuous forest landscapes into smaller isolated 
     patches, creating contrasting environmental conditions between forest edges 
     and interior areas. In this first exercise, we will use airborne LiDAR to 
     evaluate how these edge effects influence forest structural diversity by 
@@ -50,7 +50,7 @@
     In total, there are 20 total plots with 15 meter radii. Ten plots are located
     in core forests (> 30 meters from nearest edge) and ten plots are located
     on forest edges adjacent to agricultural land use. Note that the sample size
-    is extremely limited-- in a real ecological analysis, a larger sample size would be 
+    is limited-- in a real ecological analysis, a larger sample size would be 
     required.
   
   Figure: draw_plots_fig.R
@@ -97,7 +97,7 @@
 
 - Class: cmd_question
   Output: |
-    And now let's check our data out. Please enter the following into your console: 
+    And now let's check our data. Please enter the following into your console: 
     
     ctg
     
@@ -134,7 +134,6 @@
     
     opt_filter(ctg) = "-drop_z_below 0.5"
 
-    
   CorrectAnswer: opt_filter(ctg) = "-drop_z_below 0.5"
   AnswerTests: omnitest(correctExpr='opt_filter(ctg) = "-drop_z_below 0.5"')
   Hint: |
@@ -178,9 +177,9 @@
     of LiDAR returns within each plot. Collectively, these metrics describe key 
     properties of vegetation height, including the maximum height (zmax), mean 
     height (zmean), and various distributional metrics including height of different 
-    quartiles. Because the point clouds have been filtered to non-ground returns in 
+    quantiles. Because the point clouds have been filtered to non-ground returns in 
     forested areas, these statistics can be interpreted as characterizing the 
-    distribution of vegetation heights within each plot, providing  a description
+    distribution of vegetation heights within each plot, providing a description
     of forest vertical structure. 
     
 - Class: cmd_question
@@ -250,16 +249,14 @@
   Output: |
     In terms of internal heterogeneity, we see less clear separation between core 
     and edge forest plots. Typically, there is greater internal heterogeneity in 
-    core forests than edge forests due to the formation of multilayered canopies.
-    In our case, however, there may be some error due to the small sample size.
+    core forests than edge forests due to the presence of multilayered canopies.
     
 - Class: text
   Output: |
     Another common metric to characterize forest structural diversity is vegetation area 
     index (VAI), which quantifies the area of vegetation per unit of ground area. 
-    VAI captures the number of layers overlaying the ground area and the overall 
-    density of vegetation, and it is related to canopy light interception and 
-    consequently, productivity. 
+    VAI captures the density of vegetation, and it is related to canopy light 
+    interception and consequently, productivity. 
     
 - Class: cmd_question
   Output: |
@@ -300,15 +297,14 @@
     
     In summary, we found that forest edges were shorter and less dense than forest
     cores, but had approximately the same levels of internal heterogeneity compared
-    to core forest plots. *sentence about the significance of this*
+    to core forest plots. 
     
 - Class: text
   Output: |
     While a plot-based approach may be appropriate for some experimental designs,
     management-focused applications may require wall-to-wall maps of forest structural
-    diversity for a large forested area in order to identify structural diversity 
-    hotspots or areas where management practices to increase structural diversity
-    can be implemented. 
+    diversity in order to identify structural diversity hotspots or areas where 
+    management practices to increase structural diversity can be implemented. 
     
     In the rest of this lesson, we will introduce an additional structural diversity
     metric and produce wall-to-wall structural diversity maps of Purdue University 
@@ -318,7 +314,7 @@
   Output: |
     Remember that a CHM is a point cloud-derived raster of the height of the outer 
     canopy surface above ground. In our case, this CHM has been created for Martell 
-    Forest using the same 3DEP LiDAR dataset as our previous exercise. For the 
+    Forest using the 3DEP LiDAR dataset, similar to the exercise. For the 
     sake of time, we will not go through the steps of creating a CHM from the LiDAR 
     point cloud, but instead read in a CHM already created for our study area. To 
     read in the CHM, please enter the following into your console: 
@@ -350,11 +346,10 @@
   Output: |
     Let's create a map of top rugosity for Martell Forest. The first step is to
     mask out pixels that are not considered forest canopy as inclusion of ground
-    pixels will influence our top rugosity calculations. Since our area is not
+    or low vegetation pixels will influence our top rugosity calculations. Since our area is not
     in an urban environment and contains few buildings, we can assume that all
     pixels with heights above a threshold can be considered forest canopy. For 
-    this exercise, we will set the threshold at 5 meters (this may not be an
-    appropriate threshold for all situations). Please enter the following into
+    this exercise, we will set the threshold at 5 meters. Please enter the following into
     your console: 
     
     martell_chm[martell_chm <= 5] <- NA
@@ -397,7 +392,35 @@
     
     plot(martell_chm)     
     
-# ok here we need something about the significance of this map / top rugosity
+- Class: text
+  Output: |
+    The top rugosity map represents spatial variation in the roughness of the 
+    forest canopy surface across Martell Forest. Areas with high top rugosity 
+    indicate greater variation in canopy height over short distances, which is 
+    often associated with complex crown architecture, uneven-aged stands, or 
+    recent disturbance. Areas with low top rugosity indicate smoother, more 
+    uniform canopy surfaces, such as even-aged stands or plantations.
 
-# then we need something to tie everything together... 
+    Importantly, top rugosity captures an aspect of forest structural diversity 
+    that is complementary to the plot-based metrics we calculated earlier and easier
+    to calculate at scale. Together, these metrics provide a more complete picture of 
+    forest structural diversity.
+    
+- Class: text
+  Output: |
+    In this lesson, you learned how forest structural diversity can be quantified 
+    using LiDAR data across multiple spatial scales. Using plot-based LiDAR metrics, 
+    we compared the height, density, and internal heterogeneity of forest structure 
+    between edge and core forest plots. These metrics allowed us to link structural 
+    diversity to ecological processes such as forest fragmentation.
+
+    We then shifted from a plot-based perspective to a landscape-scale approach 
+    by using a canopy height model to create a wall-to-wall map of top rugosity. 
+    This approach allows structural diversity to be mapped continuously across 
+    space, which is critical for forest management, conservation planning, and 
+    identifying areas of high ecological value.
+    
+    By combining point cloud-based metrics with raster-based canopy metrics, LiDAR 
+    provides a powerful framework for quantifying forest structure from individual 
+    plots to entire landscapes.
     
