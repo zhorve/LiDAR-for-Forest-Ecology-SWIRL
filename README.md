@@ -1,7 +1,7 @@
 # LiDAR for Forest Ecology
 
 This course introduces the fundamentals of **LiDAR analysis for forest ecology** using the **`lidR`** package in R.  
-You will learn to work with airborne LiDAR point clouds to derive terrain models, canopy structure, tree-level metrics, and forest structural diversity.
+You will learn to work with airborne LiDAR point clouds to derive canopy height models, tree-level metrics, and forest structural diversity from the plot level to landscapes.
 
 📦 **lidR package**: [https://github.com/r-lidar/lidR](https://github.com/r-lidar/lidR)
 
@@ -10,36 +10,30 @@ You will learn to work with airborne LiDAR point clouds to derive terrain models
 ## Course Lessons
 
 ### Lesson 1: Introduction to LiDAR Point Clouds
-- Load and inspect LiDAR point clouds (`.las`/`.laz`)
-- Digital Surface Model (DSM) creation
-- Digital Terrain Model (DTM) creation
-- Canopy Height Model (CHM) generation
-- Building classification and removal for urban forests
+- Learn the differences between a digital surface model, digital terrain model, and a canopy height model
+- Create a CHM
+- Build understanding of point classifications through building classification and removal for urban forests
 
 ---
 
 ### Lesson 2: Individual Tree Analysis
-- Normalize point cloud heights above ground
-- Filter high-vegetation points
-- Detect individual trees using local maxima
-- Segment individual trees and derive tree-level metrics
+- Detect and segment individual trees using NEON AOP LiDAR data
+- Derive tree-level biometrics such as tree height
 - Map tree density and mean tree height across landscapes
 
 ---
 
 ### Lesson 3: Forest Structural Diversity
-- Quantify forest structural diversity from CHMs
-- Compare forest edges vs. interior plots
-- Summarize LiDAR metrics by plot
+- Quantify forest structural diversity from point clouds and CHMs
+- Explore the structural differences between forest edge and interior plots
 - Create wall-to-wall maps of structural diversity
 
 ---
 
 ## Intended Audience
 This course is designed for:
-- Forest ecologists
-- Remote sensing scientists
-- Graduate students and researchers
+- Forest ecologists and managers
+- Upper level undergraduate and graduate students
 - Anyone interested in applying LiDAR to ecological questions
 
 ---
@@ -47,7 +41,7 @@ This course is designed for:
 ## Requirements
 - R (≥ 4.2 recommended)
 - RStudio
-- Packages: `lidR`, `terra`, `sf`, `ggplot2`
+- Packages: `lidR`, `terra`, `sf`, `swirl`
 
 ---
 
