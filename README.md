@@ -1,45 +1,37 @@
-# Introduction to LiDAR Swirl Course
+# LiDAR for Forest Ecology
 
-This course introduces the fundamentals of **LiDAR data analysis for forest ecology applications** using the **`lidR`** package in R.
+This course introduces the fundamentals of **LiDAR analysis for forest ecology** using the **`lidR`** package in R.  
+You will learn to work with airborne LiDAR point clouds to derive terrain models, canopy structure, tree-level metrics, and forest structural diversity.
 
-You will learn how to work with airborne LiDAR point clouds to derive terrain models, canopy structure, and tree-level metrics, and how to apply these products in ecological analyses.
-
-📦 **lidR package**: https://github.com/r-lidar/lidR
+📦 **lidR package**: [https://github.com/r-lidar/lidR](https://github.com/r-lidar/lidR)
 
 ---
 
 ## Course Lessons
 
 ### Lesson 1: Introduction to LiDAR Point Clouds
-- Understanding LiDAR point clouds
-- Digital Elevation Models (DEM)
-- Digital Surface Models (DSM)
-- Canopy Height Models (CHM)
-- Building detection and removal in urban environments
+- Load and inspect LiDAR point clouds (`.las`/`.laz`)
+- Digital Surface Model (DSM) creation
+- Digital Terrain Model (DTM) creation
+- Canopy Height Model (CHM) generation
+- Building classification and removal for urban forests
 
 ---
 
-### Lesson 2: Beyond a Canopy Height Model
-- Raster-based forest structure metrics
-- Canopy cover and height variability
-- Structural complexity products
-- Scaling LiDAR metrics across landscapes
+### Lesson 2: Individual Tree Analysis
+- Normalize point cloud heights above ground
+- Filter high-vegetation points
+- Detect individual trees using local maxima
+- Segment individual trees and derive tree-level metrics
+- Map tree density and mean tree height across landscapes
 
 ---
 
-### Lesson 3: Individual Tree Analysis
-- Individual tree segmentation
-- Tree crown delineation
-- Tree-level height and structural metrics
-- Applications for forest inventory
-
----
-
-### Lesson 4: Example Ecological Analysis
-- Using plot-level polygons
-- Comparing forest edges vs. interior
-- Summarizing LiDAR metrics by management or landscape units
-- Interpreting ecological patterns from LiDAR data
+### Lesson 3: Forest Structural Diversity
+- Quantify forest structural diversity from CHMs
+- Compare forest edges vs. interior plots
+- Summarize LiDAR metrics by plot
+- Create wall-to-wall maps of structural diversity
 
 ---
 
@@ -56,3 +48,10 @@ This course is designed for:
 - R (≥ 4.2 recommended)
 - RStudio
 - Packages: `lidR`, `terra`, `sf`, `ggplot2`
+
+---
+
+## References & Resources
+- `lidR` documentation: [https://github.com/r-lidar/lidR](https://github.com/r-lidar/lidR)
+- Dalponte & Coomes (2016) tree segmentation algorithm: https://doi.org/10.1111/2041-210X.12575
+- NEON LiDAR data: [https://www.neonscience.org/data-products](https://www.neonscience.org/data-products)
