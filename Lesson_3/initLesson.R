@@ -23,7 +23,7 @@ get_swirl_course_path <- function(course_name) {
 }
 
 # Replace with your course folder name
-course_name <- "Introduction-to-LiDAR-SWIRL/Lesson_3"
+course_name <- "LiDAR-for-Forest-Ecology-SWIRL/Lesson_3"
 
 # Set working directory to the course folder
 setwd(get_swirl_course_path(course_name))
