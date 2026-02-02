@@ -385,12 +385,12 @@
     
     top_rugosity_wtw <- aggregate(martell_chm, fact = 10, fun = sd, na.rm = TRUE)
 
-  CorrectAnswer: plot(martell_chm)
-  AnswerTests: omnitest(correctExpr='plot(martell_chm)')
+  CorrectAnswer: top_rugosity_wtw <- aggregate(martell_chm, fact = 10, fun = sd, na.rm = TRUE)
+  AnswerTests: omnitest(correctExpr='top_rugosity_wtw <- aggregate(martell_chm, fact = 10, fun = sd, na.rm = TRUE)')
   Hint: |
-    Simply copy and paste the following into the console: 
+   Simply copy and paste the following into the console: 
     
-    plot(martell_chm)     
+   top_rugosity_wtw <- aggregate(martell_chm, fact = 10, fun = sd, na.rm = TRUE) 
     
 - Class: text
   Output: |
@@ -399,11 +399,24 @@
     indicate greater variation in canopy height over short distances, which is 
     often associated with complex crown architecture, uneven-aged stands, or 
     recent disturbance. Areas with low top rugosity indicate smoother, more 
-    uniform canopy surfaces, such as even-aged stands or plantations.
+    uniform canopy surfaces, such as even-aged stands or plantations. Let's view 
+    our map by entering the following into your console: 
+    
+    plot(top_rugosity_wtw)
 
+  CorrectAnswer: plot(top_rugosity_wtw)
+  AnswerTests: omnitest(correctExpr='plot(top_rugosity_wtw)')
+  Hint: |
+   Simply copy and paste the following into the console: 
+    
+   plot(top_rugosity_wtw)
+
+
+- Class: text
+  Output: |
     Importantly, top rugosity captures an aspect of forest structural diversity 
     that is complementary to the plot-based metrics we calculated earlier and easier
-    to calculate at scale. Together, these metrics provide a more complete picture of 
+    to measure at scale. Together, these metrics provide a more complete picture of 
     forest structural diversity.
     
 - Class: text
