@@ -22,9 +22,13 @@ Follow these steps to set up the course:
 3. **Install the course from GitHub**  
    In R or RStudio, run the following command:  
    ```r
-   swirl::install_course_github("zhorve", "LiDAR-for-Forest_Ecology-SWIRL")
+   swirl::install_course_github("zhorve", "LiDAR-for-Forest-Ecology-SWIRL")
 
-
+4. **Start SWIRL**  
+   In R or RStudio, run the following command:  
+   ```r
+   swirl()
+   
 ## Course Lessons
 
 ### Lesson 1: Introduction to LiDAR Point Clouds
