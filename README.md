@@ -41,6 +41,10 @@ Follow these steps to set up the course:
 - Create a CHM
 - Build understanding of point classifications through building classification and removal for urban forests
 
+![LiDAR Point Cloud Classification](images/classification_wipe_slow_cropped.gif)
+
+![Canopy Height Model](images/davenport_chm.png)
+
 ---
 
 ### Lesson 2: Individual Tree Analysis
@@ -48,12 +52,16 @@ Follow these steps to set up the course:
 - Derive tree-level biometrics such as tree height
 - Map tree density and mean tree height across landscapes
 
+![Tree Density](images/abby_treetops.png)
+
 ---
 
 ### Lesson 3: Forest Structural Diversity
 - Quantify forest structural diversity from point clouds and CHMs
 - Explore the structural differences between forest edge and interior plots
 - Create wall-to-wall maps of structural diversity
+
+![Top Rugosity Map](images/martell_top_rugosity.png)
 
 ---
 
