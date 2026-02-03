@@ -45,7 +45,7 @@ Follow these steps to set up the course:
 - Create a CHM
 - Build understanding of point classifications through building classification and removal for urban forests
 
-![LiDAR Point Cloud Classification](images/classification_gif.gif)
+![LiDAR Point Cloud Classification](images/classification_gif_with_cover.gif)
 ![Canopy Height Model](images/davenport_chm.png)
 
 ---
