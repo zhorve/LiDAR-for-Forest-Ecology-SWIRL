@@ -30,13 +30,13 @@
   Output: | 
     To load the point cloud, please enter the following into the console: 
     
-    las= readLAS("davenport_pc.las")
+    las = readLAS("davenport_pc.las")
     
-  CorrectAnswer: las= readLAS("Data/lesson_1_davenport_pc.las")
-  AnswerTests: omnitest(correctExpr='las= readLAS("Data/lesson_1_davenport_pc.las")')
+  CorrectAnswer: las = readLAS("davenport_pc.las")
+  AnswerTests: omnitest(correctExpr='las = readLAS("davenport_pc.las")')
   Hint: |
     Just copy and paste the following into the console: 
-    las= readLAS("Data/lesson_1_davenport_pc.las")
+    las = readLAS("davenport_pc.las")
 
 - Class: cmd_question
   Output: |
