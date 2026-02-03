@@ -46,7 +46,6 @@ if (length(missing) > 0) {
 # the color palette to make things more simple. 
 
 library(lidR)
-library(raster)
 library(png)
 
 col = height.colors(25)
