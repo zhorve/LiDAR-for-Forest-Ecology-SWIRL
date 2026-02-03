@@ -19,7 +19,7 @@ Follow these steps to set up the course:
    ```r
    install.packages("swirl")
 
-3. ** Install required dependencies for this course**  
+3. **Install required dependencies for this course**  
    The lessons use additional spatial and LiDAR packages. If you skip this step, the packages will be installed automatically when the lesson begins. To install them in advance, run:
    ```r
    install.packages(c("lidR", "terra", "sf", "png"))
