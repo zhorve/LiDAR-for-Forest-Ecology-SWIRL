@@ -34,7 +34,7 @@ cat("Working directory set to:\n", getwd(), "\n")
 # The lesson requires the raster and lidR packages. This checks and installs
 # the packages in cass the learner does not have them. 
 
-pkgs <- c("raster", "lidR", "png")
+pkgs <- c("lidR", "png")
 
 missing <- pkgs[!vapply(pkgs, requireNamespace, logical(1), quietly = TRUE)]
 
