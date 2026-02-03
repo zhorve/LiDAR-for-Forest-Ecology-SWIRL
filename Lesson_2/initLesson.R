@@ -34,7 +34,7 @@ cat("Working directory set to:\n", getwd(), "\n")
 # The lesson requires the raster and lidR packages. This checks and installs
 # the packages in cass the learner does not have them. 
 
-pkgs <- c("sf", "lidR", "dplyr", "terra")
+pkgs <- c("sf", "lidR", "terra")
 
 missing <- pkgs[!vapply(pkgs, requireNamespace, logical(1), quietly = TRUE)]
 
@@ -46,7 +46,6 @@ if (length(missing) > 0) {
 # the color palette to make things more simple. 
 
 library(lidR)
-library(dplyr)
 library(sf)
 library(terra)
 
