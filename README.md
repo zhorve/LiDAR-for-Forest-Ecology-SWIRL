@@ -23,13 +23,17 @@ Follow these steps to set up the course:
    The lessons use additional spatial and LiDAR packages. If you skip this step, the packages will be installed automatically when the lesson begins. To install them in advance, run:
    ```r
    install.packages(c("lidR", "terra", "sf", "png"))
+
+4. **Load the `swirl` package** in R:  
+   ```r
+   library(swirl)
    
-4. **Install the course from GitHub**  
+5. **Install the course from GitHub**  
    In R or RStudio, run the following command:  
    ```r
    swirl::install_course_github("zhorve", "LiDAR-for-Forest-Ecology-SWIRL", branch = "course")
 
-5. **Start SWIRL**  
+6. **Start SWIRL**  
    In R or RStudio, run the following command and follow the prompts in your console:  
    ```r
    swirl()
