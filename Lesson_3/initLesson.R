@@ -32,7 +32,7 @@ setwd(get_swirl_course_path(course_name))
 cat("Working directory set to:\n", getwd(), "\n")
 
 
-pkgs <- c("sf", "lidR", "dplyr", "terra", "png")
+pkgs <- c("sf", "lidR", "terra", "png")
 
 missing <- pkgs[!vapply(pkgs, requireNamespace, logical(1), quietly = TRUE)]
 
@@ -42,7 +42,6 @@ if (length(missing) > 0) {
 
 library(sf)
 library(lidR)
-library(dplyr)
 library(terra)
 library(png)
 
