@@ -66,7 +66,7 @@
   CorrectAnswer: plots = st_read("Data/plot_polys.shp")
   AnswerTests: omnitest(correctExpr='plots = st_read("Data/plot_polys.shp")')
   Hint: |
-    Simply copy and paste the following into the terminal: 
+    Please copy and paste the following into the terminal: 
     
     plots = st_read("Data/plot_polys.shp")
 
@@ -91,7 +91,7 @@
   CorrectAnswer: ctg = readLAScatalog("Data/LAS"))
   AnswerTests: omnitest(correctExpr='ctg = readLAScatalog("Data/LAS")')
   Hint: |
-    Simply copy and paste the following into the terminal: 
+    Please copy and paste the following into the terminal: 
     
     ctg = readLAScatalog("Data/LAS")
 
@@ -104,7 +104,7 @@
   CorrectAnswer: ctg
   AnswerTests: omnitest(correctExpr='ctg')
   Hint: |
-    Simply copy and paste the following into the terminal: 
+    Please copy and paste the following into the terminal: 
     
     ctg
     
@@ -137,7 +137,7 @@
   CorrectAnswer: opt_filter(ctg) = "-drop_z_below 0.5"
   AnswerTests: omnitest(correctExpr='opt_filter(ctg) = "-drop_z_below 0.5"')
   Hint: |
-    Simply copy and paste the following into the console: 
+    Please copy and paste the following into the console: 
     
     opt_filter(ctg) = "-drop_z_below 0.5"
     
@@ -153,7 +153,7 @@
   CorrectAnswer: standard_metrics = plot_metrics(ctg, .stdmetrics, geometry = plots)
   AnswerTests: omnitest(correctExpr='standard_metrics = plot_metrics(ctg, .stdmetrics, geometry = plots)')
   Hint: |
-    Simply copy and paste the following into the console: 
+    Please copy and paste the following into the console: 
     
     standard_metrics = plot_metrics(ctg, .stdmetrics, geometry = plots)
     
@@ -167,7 +167,7 @@
   CorrectAnswer: View(standard_metrics)
   AnswerTests: omnitest(correctExpr='View(standard_metrics)')
   Hint: |
-    Simply copy and paste the following into the console: 
+    Please copy and paste the following into the console: 
     
     View(standard_metrics)
     
@@ -193,7 +193,7 @@
   CorrectAnswer: boxplot(zmax ~ category, data = standard_metrics)
   AnswerTests: omnitest(correctExpr='boxplot(zmax ~ category, data = standard_metrics)')
   Hint: |
-    Simply copy and paste the following into the console: 
+    Please copy and paste the following into the console: 
     
     boxplot(zmax ~ category, data = standard_metrics)
     
@@ -211,7 +211,7 @@
   CorrectAnswer: boxplot(zmean ~ category, data = standard_metrics)
   AnswerTests: omnitest(correctExpr='boxplot(zmean ~ category, data = standard_metrics)')
   Hint: |
-    Simply copy and paste the following into the console: 
+    Please copy and paste the following into the console: 
     
     boxplot(zmean ~ category, data = standard_metrics)
     
@@ -241,7 +241,7 @@
   CorrectAnswer: boxplot(zsd ~ category, data = standard_metrics)
   AnswerTests: omnitest(correctExpr='boxplot(zsd ~ category, data = standard_metrics)')
   Hint: |
-    Simply copy and paste the following into the console: 
+    Please copy and paste the following into the console: 
     
     boxplot(zsd ~ category, data = standard_metrics)    
     
@@ -272,7 +272,7 @@
   CorrectAnswer: plot_vai = plot_metrics(ctg, ~VAI(Z), geometry = plots)
   AnswerTests: omnitest(correctExpr='plot_vai = plot_metrics(ctg, ~VAI(Z), geometry = plots)')
   Hint: |
-    Simply copy and paste the following into the console: 
+    Please copy and paste the following into the console: 
     
     plot_vai = plot_metrics(ctg, ~VAI(Z), geometry = plots)    
     
@@ -286,7 +286,7 @@
   CorrectAnswer: boxplot(V1 ~ category, data = plot_vai, ylab = "VAI")
   AnswerTests: omnitest(correctExpr='boxplot(V1 ~ category, data = plot_vai, ylab = "VAI")')
   Hint: |
-    Simply copy and paste the following into the console: 
+    Please copy and paste the following into the console: 
     
     boxplot(V1 ~ category, data = plot_vai, ylab = "VAI")   
     
@@ -324,7 +324,7 @@
   CorrectAnswer: martell_chm = rast("Data/martell_chm.tif")
   AnswerTests: omnitest(correctExpr='martell_chm = rast("Data/martell_chm.tif")')
   Hint: |
-    Simply copy and paste the following into the console: 
+    Please copy and paste the following into the console: 
     
     martell_chm = rast("Data/martell_chm.tif")      
 
@@ -357,7 +357,7 @@
   CorrectAnswer: martell_chm[martell_chm <= 5] <- NA
   AnswerTests: omnitest(correctExpr='martell_chm[martell_chm <= 5] <- NA')
   Hint: |
-    Simply copy and paste the following into the console: 
+    Please copy and paste the following into the console: 
     
     martell_chm[martell_chm <= 5] <- NA    
 
@@ -371,7 +371,7 @@
   CorrectAnswer: plot(martell_chm)
   AnswerTests: omnitest(correctExpr='plot(martell_chm)')
   Hint: |
-    Simply copy and paste the following into the console: 
+    Please copy and paste the following into the console: 
     
     plot(martell_chm)     
 
@@ -388,7 +388,7 @@
   CorrectAnswer: top_rugosity_wtw <- aggregate(martell_chm, fact = 10, fun = sd, na.rm = TRUE)
   AnswerTests: omnitest(correctExpr='top_rugosity_wtw <- aggregate(martell_chm, fact = 10, fun = sd, na.rm = TRUE)')
   Hint: |
-   Simply copy and paste the following into the console: 
+   Please copy and paste the following into the console: 
     
    top_rugosity_wtw <- aggregate(martell_chm, fact = 10, fun = sd, na.rm = TRUE) 
     
@@ -402,14 +402,14 @@
     uniform canopy surfaces, such as even-aged stands or plantations. Let's view 
     our map by entering the following into your console: 
     
-    plot(top_rugosity_wtw)
+    plot(top_rugosity_wtw, main = "Top Rugosity (10 m)")
 
-  CorrectAnswer: plot(top_rugosity_wtw)
-  AnswerTests: omnitest(correctExpr='plot(top_rugosity_wtw)')
+  CorrectAnswer: plot(top_rugosity_wtw, main = "Top Rugosity (10 m)")
+  AnswerTests: omnitest(correctExpr='plot(top_rugosity_wtw, main = "Top Rugosity (10 m)")')
   Hint: |
-   Simply copy and paste the following into the console: 
+   Please copy and paste the following into the console: 
     
-   plot(top_rugosity_wtw)
+   plot(top_rugosity_wtw, main = "Top Rugosity (10 m)")
 
 
 - Class: text

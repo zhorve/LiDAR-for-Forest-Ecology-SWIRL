@@ -35,7 +35,7 @@
   CorrectAnswer: las = readLAS("ABBY_pc.laz")
   AnswerTests: omnitest(correctExpr='las = readLAS("ABBY_pc.laz")')
   Hint: |
-   Simply type las = readLAS("ABBY_pc.laz") into your console.
+   Please type las = readLAS("ABBY_pc.laz") into your console.
 
 - Class: cmd_question
   Output: |
@@ -48,7 +48,7 @@
   CorrectAnswer: plot(las)
   AnswerTests: omnitest(correctExpr='plot(las)')
   Hint: |
-    Just copy and paste the following into the console: 
+    Please copy and paste the following into the console: 
     
     plot(las)
  
@@ -67,7 +67,7 @@
   CorrectAnswer: plot(las, color = "Classification")
   AnswerTests: omnitest(correctExpr='plot(las, color = "Classification")')
   Hint: |
-    Just copy and paste the following into the console: 
+    Please copy and paste the following into the console: 
     
     plot(las, color = "Classification")
 
@@ -96,7 +96,7 @@
   CorrectAnswer: las_norm = normalize_height(las, algorithm = knnidw())
   AnswerTests: omnitest(correctExpr='las_norm = normalize_height(las, algorithm = knnidw())')
   Hint: |
-    Simply copy and paste the following into the console: 
+    Please copy and paste the following into the console: 
     
     las_norm = normalize_height(las, algorithm = knnidw())
 
@@ -113,7 +113,7 @@
   CorrectAnswer: plot(las_norm)
   AnswerTests: omnitest(correctExpr='plot(las_norm)')
   Hint: |
-    Simply copy and paste the following into the console: 
+    Please copy and paste the following into the console: 
     
     plot(las_norm)
 
@@ -129,7 +129,7 @@
   CorrectAnswer: las_veg = filter_poi(las_norm, Classification == LASHIGHVEGETATION)
   AnswerTests: omnitest(correctExpr='las_veg = filter_poi(las_norm, Classification == LASHIGHVEGETATION)')
   Hint: |
-    Simply copy and paste the following into the console: 
+    Please copy and paste the following into the console: 
     
     las_veg = filter_poi(las_norm, Classification == LASHIGHVEGETATION)
 
@@ -148,7 +148,7 @@
   CorrectAnswer: ttops = locate_trees(las_veg, lmf(ws = 5))
   AnswerTests: omnitest(correctExpr='ttops = locate_trees(las_veg, lmf(ws = 5))')
   Hint: |
-    Simply copy and paste the following into the console: 
+    Please copy and paste the following into the console: 
     
     ttops = locate_trees(las_veg, lmf(ws = 5))
 
@@ -174,7 +174,7 @@
                  
   AnswerTests: omnitest(correctExpr='x = plot(las_veg, bg = "white", size = 4)')
   Hint: |
-    Simply copy and paste the following into the console: 
+    Please copy and paste the following into the console: 
     
     x = plot(las_veg, bg = "white", size = 4)
 
@@ -188,7 +188,7 @@
                  
   AnswerTests: omnitest(correctExpr='add_treetops3d(x, ttops, z = "height")')
   Hint: |
-    Simply copy and paste the following into the console: 
+    Please copy and paste the following into the console: 
     
     add_treetops3d(x, ttops, z = "height")
     
@@ -231,7 +231,7 @@
                  
   AnswerTests: omnitest(correctExpr='chm = rast("ABBY_chm.tif")')
   Hint: |
-    Simply copy and paste the following into the console: 
+    Please copy and paste the following into the console: 
     
     chm = rast("ABBY_chm.tif")
     
@@ -245,7 +245,7 @@
                  
   AnswerTests: omnitest(correctExpr='seg = segment_trees(las_veg, dalponte2016(chm, ttops), attribute = "treeID")')
   Hint: |
-    Simply copy and paste the following into the console: 
+    Please copy and paste the following into the console: 
     
     seg = segment_trees(las_veg, dalponte2016(chm, ttops), attribute = "treeID") 
 
@@ -262,7 +262,7 @@
                  
   AnswerTests: omnitest(correctExpr='View(ttops)')
   Hint: |
-    Simply copy and paste the following into the console: 
+    Please copy and paste the following into the console: 
     
     View(ttops)
     
@@ -277,7 +277,6 @@
   Hint: |
     Sort using the Z column label.
     
-
 - Class: cmd_question
   Output: |
     Returning to the ttops dataframe, find the treeID of the tallest tree. We will 
@@ -306,7 +305,7 @@
                  
   AnswerTests: omnitest(correctExpr='plot(tallest)')
   Hint: |
-    Simply enter the following into your console: 
+    Please enter the following into your console: 
     
     plot(tallest)
     
@@ -324,7 +323,7 @@
                  
   AnswerTests: omnitest(correctExpr='highlight_tree(seg, 1249)')
   Hint: |
-    Simply enter the following into your console: 
+    Please enter the following into your console: 
     
     highlight_tree(seg, 1249)
 
@@ -343,7 +342,7 @@
                  
   AnswerTests: omnitest(correctExpr='seg_ext = ext(seg)')
   Hint: |
-    Simply enter the following into your console: 
+    Please enter the following into your console: 
     
     seg_ext = ext(seg)
     
@@ -359,7 +358,7 @@
                  
   AnswerTests: omnitest(correctExpr='r = rast(ext = seg_ext, resolution = 20,crs = st_crs(ttops)$wkt)')
   Hint: |
-    Simply enter the following into your console: 
+    Please enter the following into your console: 
     
     r = rast(ext = seg_ext, resolution = 20,crs = st_crs(ttops)$wkt)
 
@@ -375,7 +374,7 @@
                  
   AnswerTests: omnitest(correctExpr='n_trees_rast = rasterize(vect(ttops), r, field = "treeID", fun = "count")')
   Hint: |
-    Simply enter the following into your console: 
+    Please enter the following into your console: 
     
     n_trees_rast = rasterize(vect(ttops), r, field = "treeID", fun = "count")
 
@@ -392,7 +391,7 @@
                  
   AnswerTests: omnitest(correctExpr='tree_density_ha = n_trees_rast / 400 * 1e4')
   Hint: |
-    Simply enter the following into your console: 
+    Please enter the following into your console: 
     
     tree_density_ha = n_trees_rast / 400 * 1e4
     
@@ -406,7 +405,7 @@
                  
   AnswerTests: omnitest(correctExpr='plot(tree_density_ha, main = "Tree Density (trees / ha)")')
   Hint: |
-    Simply enter the following into your console: 
+    Please enter the following into your console: 
     
     plot(tree_density_ha, main = "Tree Density (trees / ha)")
     
@@ -439,7 +438,7 @@
                  
   AnswerTests: omnitest(correctExpr='plot(mean_ht_rast, main = "Mean Tree Height per 20 m")')
   Hint: |
-    Simply enter the following into your console: 
+    Please enter the following into your console: 
     
     plot(mean_ht_rast, main = "Mean Tree Height per 20 m")
 
