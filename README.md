@@ -27,7 +27,7 @@ Follow these steps to set up the course:
 4. **Install the course from GitHub**  
    In R or RStudio, run the following command:  
    ```r
-   swirl::install_course_github("zhorve", "LiDAR-for-Forest-Ecology-SWIRL", branch = "course_only")
+   swirl::install_course_github("zhorve", "LiDAR-for-Forest-Ecology-SWIRL", branch = "course")
 
 5. **Start SWIRL**  
    In R or RStudio, run the following command:  
