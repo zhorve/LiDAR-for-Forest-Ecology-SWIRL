@@ -62,7 +62,7 @@ highlight_tree <- function(seg, treeid) {
   cols <- c("grey70", "red")
   
   # 4. Plot
-  plot(
+  lidR::plot(
     seg,
     color        = "plotCol",   # the new attribute
     pal = cols,         # map 0 -> grey, 1 -> red
