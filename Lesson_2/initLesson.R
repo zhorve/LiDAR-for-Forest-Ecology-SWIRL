@@ -53,7 +53,7 @@ library(terra)
 highlight_tree <- function(seg, treeid) {
   
   # 1. Create a numeric flag: 1 = target tree, 0 = others
-  plotCol <- ifelse(seg$treeID == treeid, 1L, 0L)
+  plotCol <- ifelse(seg@data$treeID == treeid, 1L, 0L)
   
   # 2. Add as a LAS attribute
   seg <- add_attribute(seg, plotCol, "plotCol")
