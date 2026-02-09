@@ -442,3 +442,16 @@
     
     plot(mean_ht_rast, main = "Mean Tree Height per 20 m")
 
+  
+- Class: text
+  Output: |
+   Fantastic work! In this lesson, you learned how airborne LiDAR can be used to move
+   from raw point clouds to ecologically meaningful information. You normalized a point
+   cloud, identified individual trees, segmented them, and created maps describing tree
+   density and height across a landscape. These steps form the foundation of many modern
+   forest remote sensing workflows.
+  
+   In the final lesson, we will build on these ideas by shifting from individual trees to
+   forest structure as a whole. You will learn what forest structural diversity is, why it
+   matters for habitat and ecosystem function, and how LiDAR can be used in an area-based
+   framework through an example analysis comparing structure between forest interiors and edges.
